@@ -79,6 +79,7 @@
 \newcommand{\statement}[1]{{\headfont\large #1\par}}
 \newcommand{\point}[2][bristolred]{%
   \begin{minipage}[t]{\linewidth}\raggedright{\color{#1}\rule{\linewidth}{1.2pt}}\par\vspace{0.8mm}{\footnotesize\color{body}#2}\end{minipage}}
+\newcommand{\limitation}[1]{\begin{minipage}[t]{\linewidth}\raggedright\textcolor{bristolred}{\tikz[baseline=-0.6ex]{\draw[bristolred,line width=1.3pt,line cap=round] (-0.9mm,-0.9mm) -- (0.9mm,0.9mm) (-0.9mm,0.9mm) -- (0.9mm,-0.9mm);}}\hspace{1.5mm}{\footnotesize\color{ink}#1}\end{minipage}}
 \newtcolorbox{card}[1][]{enhanced,colback=white,colframe=rulegrey,boxrule=0.7pt,arc=1.5mm,
   left=2.5mm,right=2.5mm,top=1.5mm,bottom=1.5mm,before upper={\raggedright\setlength{\parskip}{0.8mm}},#1}
 \newtcolorbox{tintcard}[2][]{enhanced,colback=#2,frame hidden,arc=1.5mm,
@@ -123,12 +124,13 @@
 }
 
 % =====================================================================
+{\renewcommand{\footleft}{S. J. Perren \textperiodcentered{} University of Bristol \quad\textperiodcentered\quad Source: Phillippo et al., PharmacoEconomics 2019 (NICE TAs 2010--2018)}
 \begin{frame}{HTA often lacks a connected network}{The problem}
 \begin{columns}[T,onlytextwidth]
 \column{0.70\textwidth}
-\begin{tikzpicture}[x=1mm,y=1mm]
+\begin{tikzpicture}[x=1mm,y=0.82mm]
   \foreach \px/\lab/\col in {0/Connected network/body, 32/Single-arm study/bristolred, 64/Disconnected networks/bristolred}
-    \node[anchor=north,font=\scriptsize\bfseries,text=\col,text width=34mm,align=center] at (\px+14.5,-1) {\lab};
+    \node[anchor=north,font=\scriptsize\bfseries,text=\col,text width=34mm,align=center] at (\px+14.5,-1.5) {\lab};
   \foreach \px in {0,32,64} \draw[rulegrey,line width=0.6pt,rounded corners=1.5mm] (\px,0) rectangle ++(29,27);
   % connected: triangle
   \node[pnode] (a1) at (14.5,21.5) {A};
@@ -148,25 +150,26 @@
   \foreach \xx/\yy in {84/23, 88.5/17, 88.5/10, 84/4} { \node[pnode] (t) at (\xx,\yy) {}; \draw[pedge] (h) -- (t); }
 \end{tikzpicture}
 \column{0.27\textwidth}\raggedright
-{\headfont\LARGE\bfseries\color{bristolred}18/268}\par
+{\headfont\Large\bfseries\color{bristolred}18/268}\par
 {\scriptsize\color{body}NICE appraisals used population adjustment}\par\vspace{1mm}
-{\headfont\LARGE\bfseries\color{bristolred}16/18}\par
+{\headfont\Large\bfseries\color{bristolred}16/18}\par
 {\scriptsize\color{body}of those were unanchored and used MAIC}\par\vspace{1mm}
-{\headfont\LARGE\bfseries\color{bristolred}10/18}\par
+{\headfont\Large\bfseries\color{bristolred}10/18}\par
 {\scriptsize\color{body}involved more than two treatments}
 \end{columns}
 \vfill
-{\normalsize\bfseries MAIC and STC can't keep up}\par\vspace{1.5mm}
+\begin{tcolorbox}[enhanced,colback=sand,frame hidden,borderline west={1.2mm}{0mm}{bristolred},arc=1.5mm,left=4mm,right=3mm,top=1.5mm,bottom=2mm]
+{\small\bfseries MAIC and STC can't keep up:}\par\vspace{1.2mm}
 \begin{columns}[t,onlytextwidth]
-\column{0.31\textwidth}\point{One pair of studies at a time}
-\column{0.31\textwidth}\point{Estimates only in the aggregate study's population}
-\column{0.31\textwidth}\point{No way to assess whether the key assumption is plausible}
+\column{0.31\textwidth}\limitation{One pair of studies at a time}
+\column{0.33\textwidth}\limitation{Estimates only in the aggregate study's population}
+\column{0.33\textwidth}\limitation{No way to assess whether the key assumption is plausible}
 \end{columns}
-\vspace{1.5mm}
-{\tiny\color{muted}Source: Phillippo et al., PharmacoEconomics 2019 (NICE TAs 2010--2018)\par}
+\end{tcolorbox}
 \vspace{1mm}
 \note{\textasciitilde 1:15. NMA pools randomised trials to compare many treatments, but only when there's a path of trials joining them, like the triangle on the left. Randomisation within each trial means differences in prognostic factors between trials cancel out. Health technology assessment committees increasingly see the other two pictures: a treatment that only comes from a single-arm study, or whole sub-networks with no common comparator between them. Comparisons across that gap are unanchored. Of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment methods, and 16 of those were unanchored comparisons using MAIC. And in over half of them, the decision involved more than two treatments, but MAIC and STC can only compare one pair of studies at a time. They also only give estimates in the aggregate study's population, and give you no way to assess whether the assumption they rest on is plausible.}
 \end{frame}
+}
 
 % =====================================================================
 \begin{frame}{ML-NMR: one model for IPD and aggregate data}{Background}
