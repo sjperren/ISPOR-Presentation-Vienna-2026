@@ -253,20 +253,20 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
     bigp/.style={pnode,minimum size=6.8mm,font=\small\bfseries},
     bigg/.style={gnode,minimum size=6.8mm,font=\small\bfseries}]
   % sub-network 2 (disconnected): green pair
-  \node[bigg] (c) at (22,30) {C};
-  \node[bigg] (d) at (22,4) {D};
+  \node[bigg] (c) at (38,30) {C};
+  \node[bigg] (d) at (38,4) {D};
   \draw[gedge,line width=1.6pt] (c) -- (d);
   % sub-network 1 (reference): purple star around PBO
-  \node[bigp,font=\scriptsize\bfseries] (pbo) at (100,17) {PBO};
-  \foreach \xx/\yy/\lab in {111/34/A, 122/25/B, 122/9/E, 111/0/F} {
+  \node[bigp,font=\scriptsize\bfseries] (pbo) at (82,17) {PBO};
+  \foreach \xx/\yy/\lab in {93/34/A, 104/25/B, 104/9/E, 93/0/F} {
     \node[bigp] (t) at (\xx,\yy) {\lab}; \draw[pedge,line width=1.6pt] (pbo) -- (t); }
   % the bridge
-  \draw[bristolred,densely dotted,line width=1.8pt] (24.5,17) -- (pbo);
-  \node[font=\Large,text=bristolred] at (60,24) {$\mu_{j'} = {?}$};
-  \node[font=\scriptsize\bfseries,text=bristolred] at (60,11) {no randomised link};
+  \draw[bristolred,densely dotted,line width=1.8pt] (40.5,17) -- (pbo);
+  \node[font=\Large,text=bristolred] at (59,24) {$\mu_{j'} = {?}$};
+  \node[font=\scriptsize\bfseries,text=bristolred] at (59,10.5) {no randomised link};
   % labels
-  \node[anchor=north,font=\scriptsize\bfseries,text=netgreenline,align=center] at (22,-4) {Sub-network 2\\disconnected studies $j'$};
-  \node[anchor=north,font=\scriptsize\bfseries,text=netpurpleline,align=center] at (108,-4) {Sub-network 1\\contains the reference (PBO)};
+  \node[anchor=north,font=\scriptsize\bfseries,text=netgreenline,align=center] at (30,-4) {Sub-network 2\\disconnected studies $j'$};
+  \node[anchor=north,font=\scriptsize\bfseries,text=netpurpleline,align=center] at (92,-4) {Sub-network 1\\contains the reference (PBO)};
 \end{tikzpicture}
 \vfill
 {\Large $\eta_{j'k}(\bm{x}) = \colorbox{pinkbg}{$\color{bristolred}\mu_{j'}$} + \bm{x}^T(\bm{\beta}_1 + \bm{\beta}_{2k}) + \gamma_k$}\par\vspace{3mm}
