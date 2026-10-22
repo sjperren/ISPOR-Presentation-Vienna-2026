@@ -287,38 +287,48 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 % =====================================================================
 \begin{frame}{The random baseline bridge, in two stages}{Bridge 1 \textperiodcentered{} preferred where data allow}
 \centering
-\begin{tikzpicture}[x=1mm,y=1mm]
-  % panel backgrounds
-  \foreach \px in {0,47,94} \fill[tealbg,rounded corners=1.5mm] (\px,0) rectangle ++(40,52);
-  \draw[randteal,flowarrow] (41,26) -- (46,26);
-  \draw[randteal,flowarrow] (88,26) -- (93,26);
-  % panel 1
-  \node[anchor=north west,text width=36mm,align=left] at (2,50) {\eyebrow[randteal]{Stage 1}\\[0.5mm]{\footnotesize\bfseries Synthesise baselines in sub-network 1}};
-  \draw[axis] (3,17) -- (37,17);
-  \draw[randteal,line width=1.2pt,domain=3:37,samples=50] plot (\x,{17+13*gauss(\x,20,4)});
-  \foreach \x in {14.5,18,22,25.5} \fill[ink] (\x,17) circle (1);
-  \node[anchor=north west,text width=36mm,align=left,font=\scriptsize] at (2,14) {$\mu_j \sim N(m_\mu, \tau_\mu^2)$\\[0.5mm]\textcolor{body}{Dots: adjusted baselines of the reference studies}};
-  % panel 2
-  \node[anchor=north west,text width=36mm,align=left] at (49,50) {\eyebrow[randteal]{Stage 1 output}\\[0.5mm]{\footnotesize\bfseries Predictive distribution for a new study}};
-  \fill[randteal,opacity=0.22,domain=50:84,samples=50] plot (\x,{17+10*gauss(\x,67,6.3)}) -- (84,17) -- (50,17) -- cycle;
-  \draw[randteal,line width=1.2pt,domain=50:84,samples=50] plot (\x,{17+10*gauss(\x,67,6.3)});
-  \draw[axis] (50,17) -- (84,17);
-  \node[anchor=north west,text width=36mm,align=left,font=\scriptsize] at (49,14) {$\mu_\mathrm{new} \sim N(m_\mu, \tau_\mu^2)$\\[0.5mm]\textcolor{body}{$\tau_\mu$ carries unexplained between-study variation as uncertainty}};
-  % panel 3
-  \node[anchor=north west,text width=36mm,align=left] at (96,50) {\eyebrow[randteal]{Stage 2}\\[0.5mm]{\footnotesize\bfseries Prior on the disconnected baselines}};
-  \fill[randteal,opacity=0.22,domain=97:131,samples=50] plot (\x,{25+8*gauss(\x,114,6.3)}) -- (131,25) -- (97,25) -- cycle;
-  \draw[randteal,line width=1.2pt,domain=97:131,samples=50] plot (\x,{25+8*gauss(\x,114,6.3)});
-  \draw[randteal,dashed,line width=0.9pt] (108,24.5) -- (108,21) (120,24.5) -- (120,21);
-  \draw[edge] (108,18) -- (120,18);
-  \node[circle,draw=ink,fill=sand,line width=0.7pt,minimum size=4mm,inner sep=0pt] at (108,18) {};
-  \node[circle,draw=ink,fill=sand,line width=0.7pt,minimum size=4mm,inner sep=0pt] at (120,18) {};
-  \node[anchor=north west,text width=36mm,align=left,font=\scriptsize] at (96,14) {$\mu_{j'} \sim \pi(\mu_\mathrm{new})$\\[0.5mm]\textcolor{body}{Randomised comparisons within each sub-network stay untouched}};
+\begin{tikzpicture}[x=1mm,y=1mm,
+    sp/.style={pnode,minimum size=4.6mm},
+    sg/.style={gnode,minimum size=4.6mm}]
+  \fill[tealbg,rounded corners=1.5mm] (0,0) rectangle (64,51);
+  \fill[tealbg,rounded corners=1.5mm] (76,0) rectangle (140,51);
+  \draw[randteal,flowarrow] (65.5,27) -- (74.5,27);
+  % ---------------- Stage 1 ----------------
+  \node[anchor=north west,align=left] at (2.5,49.5) {\eyebrow[randteal]{Stage 1 \textperiodcentered{} sub-network 1 only}\\[0.6mm]{\footnotesize\bfseries Synthesise the baselines of the reference studies}};
+  % faded disconnected pair (not used)
+  \begin{scope}[opacity=0.25]
+    \node[sg] (c1) at (9,36.5) {}; \node[sg] (d1) at (9,20.5) {}; \draw[gedge] (c1) -- (d1);
+  \end{scope}
+  \node[font=\tiny,text=muted,align=center] at (9,16) {not used};
+  % reference sub-network
+  \node[sp,minimum size=6mm,font=\tiny\bfseries] (h1) at (34,28.5) {PBO};
+  \foreach \xx/\yy in {41/37, 47/32.5, 47/24.5, 41/20} { \node[sp] (t) at (\xx,\yy) {}; \draw[pedge] (h1) -- (t); }
+  % baseline distribution -> predictive
+  \draw[axis] (3,8) -- (29,8);
+  \draw[randteal,line width=1.1pt,domain=3:29,samples=40] plot (\x,{8+7*gauss(\x,16,3.2)});
+  \foreach \x in {12.5,15,17.5,20} \fill[netpurpleline] (\x,8) circle (0.8);
+  \draw[randteal,-{Stealth[length=1.6mm]},line width=0.9pt] (30,11) -- (35,11);
+  \fill[randteal,opacity=0.25,domain=36:62,samples=40] plot (\x,{8+5*gauss(\x,49,4.8)}) -- (62,8) -- (36,8) -- cycle;
+  \draw[randteal,line width=1.1pt,domain=36:62,samples=40] plot (\x,{8+5*gauss(\x,49,4.8)});
+  \draw[axis] (36,8) -- (62,8);
+  \node[font=\scriptsize] at (16,3.5) {$\mu_j \sim N(m_\mu, \tau_\mu^2)$};
+  \node[font=\scriptsize] at (49,3.5) {predictive $\mu_\mathrm{new}$};
+  % ---------------- Stage 2 ----------------
+  \node[anchor=north west,align=left] at (78.5,49.5) {\eyebrow[randteal]{Stage 2 \textperiodcentered{} whole network}\\[0.6mm]{\footnotesize\bfseries Prior on the disconnected baselines}};
+  \node[sg,minimum size=6mm] (c2) at (85,36.5) {}; \node[sg,minimum size=6mm] (d2) at (85,20.5) {}; \draw[gedge,line width=1.3pt] (c2) -- (d2);
+  \node[sp,minimum size=6mm,font=\tiny\bfseries] (h2) at (121,28.5) {PBO};
+  \foreach \xx/\yy in {128/37, 134/32.5, 134/24.5, 128/20} { \node[sp] (t) at (\xx,\yy) {}; \draw[pedge] (h2) -- (t); }
+  \draw[bristolred,densely dotted,line width=1.5pt] (87,28.5) -- (h2);
+  \fill[randteal,opacity=0.25,domain=92:112,samples=40] plot (\x,{30+6*gauss(\x,102,3.6)}) -- (112,30) -- (92,30) -- cycle;
+  \draw[randteal,line width=1.1pt,domain=92:112,samples=40] plot (\x,{30+6*gauss(\x,102,3.6)});
+  \node[font=\scriptsize,text=ink] at (102,24) {$\mu_{j'} \sim \pi(\mu_\mathrm{new})$};
+  \node[anchor=north west,text width=59mm,align=left,font=\scriptsize,text=body] at (78.5,15) {Only the disconnected studies get the prior. Randomised comparisons within each sub-network stay untouched.};
 \end{tikzpicture}
 \vfill
 \raggedright
 \statement{Assumes the adjusted baselines of all bridged studies are exchangeable.}
 \vspace{2mm}
-\note{\textasciitilde 1:15. The random baseline bridge has two stages. Stage 1: fit ML-NMR to sub-network 1 with random effects on the study baselines. That gives a mean and a between-study SD, tau-mu, which is the variation left after adjusting for covariates. From that we get a predictive distribution for the baseline in a new study. Stage 2: use that as an informative prior on the baselines of the disconnected studies, and fit the whole network with ML-NMR. Doing it in two stages means we never share non-randomised information across the connected parts of the network, so randomisation within each sub-network is preserved. It assumes the adjusted baselines of all bridged studies are exchangeable, and because some unobserved differences between studies are almost always there, we prefer this bridge where the data allow.}
+\note{\textasciitilde 1:15. The random baseline bridge has two stages. Stage 1, on the left, uses only sub-network 1, the part with placebo in it; the disconnected studies are greyed out. We fit ML-NMR there with random effects on the study baselines. That gives a mean and a between-study SD, tau-mu, which is the variation left after adjusting for covariates. From that we get a predictive distribution for the baseline in a new study. Stage 2, on the right, brings the whole network back in, and that predictive distribution sits on the bridge as an informative prior on the baselines of the disconnected studies only. Doing it in two stages means we never share non-randomised information across the connected parts of the network, so randomisation within each sub-network is preserved. It assumes the adjusted baselines of all bridged studies are exchangeable, and because some unobserved differences between studies are almost always there, we prefer this bridge where the data allow.}
 \end{frame}
 
 % =====================================================================
