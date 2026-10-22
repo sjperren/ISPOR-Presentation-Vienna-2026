@@ -231,21 +231,24 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 % =====================================================================
 \begin{frame}{Bridge the gap through the study baselines}{The idea}
 \centering
-\begin{tikzpicture}[x=1mm,y=1mm]
-  \draw[muted,dashed,line width=0.9pt,rounded corners=3mm] (0,0) rectangle (56,30);
-  \draw[muted,dashed,line width=0.9pt,rounded corners=3mm] (86,0) rectangle (134,30);
-  \node[anchor=north west,font=\scriptsize\bfseries,text=muted] at (2,29) {Sub-network 1 \textperiodcentered{} contains the reference};
-  \node[anchor=north west,font=\scriptsize\bfseries,text=muted] at (88,29) {Sub-network 2 \textperiodcentered{} disconnected};
-  \node[node circ] (pbo) at (28,19) {PBO};
-  \node[node circ] (a) at (12,7) {A};
-  \node[node circ] (b) at (44,7) {B};
-  \draw[edge] (pbo) -- (a) (pbo) -- (b) (a) -- (b);
-  \node[node circ] (c) at (100,15) {C};
-  \node[node circ] (d) at (120,15) {D};
-  \draw[edge] (c) -- (d);
-  \draw[bristolred,dashed,line width=1.2pt] (58,15) -- (84,15);
-  \node[font=\scriptsize\bfseries,text=bristolred,align=center] at (71,19.5) {No randomised\\link};
-  \node[font=\scriptsize\bfseries,text=bristolred] at (110,4) {Their baseline on PBO: unknown};
+\begin{tikzpicture}[x=1mm,y=0.78mm,
+    bigp/.style={pnode,minimum size=7mm,font=\small\bfseries},
+    bigg/.style={gnode,minimum size=7mm,font=\small\bfseries}]
+  \node[font=\scriptsize\bfseries,text=netpurpleline] at (28,35) {Sub-network 1 \textperiodcentered{} contains the reference};
+  \node[font=\scriptsize\bfseries,text=netgreenline] at (112,35) {Sub-network 2 \textperiodcentered{} disconnected};
+  \node[bigp,font=\scriptsize\bfseries] (pbo) at (40,16) {PBO};
+  \node[bigp] (a) at (20,27) {A};
+  \node[bigp] (b) at (14,10) {B};
+  \node[bigp] (e) at (30,1) {E};
+  \draw[pedge,line width=1.4pt] (pbo) -- (a) (pbo) -- (b) (pbo) -- (e) (a) -- (b);
+  \node[bigg] (c) at (112,26) {C};
+  \node[bigg] (d) at (112,6) {D};
+  \draw[gedge,line width=1.4pt] (c) -- (d);
+  \draw[bristolred,densely dotted,line width=1.5pt] (pbo) -- (106,16);
+  \node[font=\normalsize,text=bristolred] at (73,20) {$\mu = {?}$};
+  \node[font=\scriptsize\bfseries,text=bristolred,align=center] at (73,11) {No randomised link};
+  \node[font=\scriptsize\bfseries,text=bristolred,anchor=west] at (117,16) {Baseline on PBO};
+  \node[font=\scriptsize\bfseries,text=bristolred,anchor=west] at (117,12.5) {unknown};
 \end{tikzpicture}
 \vfill
 \raggedright
