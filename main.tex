@@ -12,7 +12,7 @@
 
 % ---------- Fonts: Source Sans / Source Serif on Overleaf, fallbacks elsewhere ----------
 \IfFileExists{sourcesanspro.sty}{\usepackage[default]{sourcesanspro}}{\usepackage{helvet}\renewcommand{\familydefault}{\sfdefault}}
-\IfFileExists{sourceserifpro.sty}{\newcommand{\headfont}{\fontfamily{SourceSerifPro-TLF}\selectfont}}{\newcommand{\headfont}{\fontfamily{ppl}\selectfont}}
+\IfFileExists{sourceserifpro.sty}{\usepackage{sourceserifpro}\newcommand{\headfont}{\rmfamily}}{\newcommand{\headfont}{\fontfamily{ppl}\selectfont}}
 \usefonttheme[onlymath]{serif}
 
 % ---------- Colours ----------
@@ -30,6 +30,10 @@
 \definecolor{extgrey}{HTML}{7A7173}
 \definecolor{studyblue}{HTML}{2F5D8C}
 \definecolor{studyochre}{HTML}{C77A1A}
+\definecolor{netpurple}{HTML}{B9AED6}
+\definecolor{netpurpleline}{HTML}{7B68A6}
+\definecolor{netgreen}{HTML}{C3DDA9}
+\definecolor{netgreenline}{HTML}{86B05C}
 
 % ---------- Theme ----------
 \setbeamercolor{normal text}{fg=ink,bg=white}
@@ -86,6 +90,10 @@
   axis/.style={draw=muted!70,line width=0.6pt},
   node circ/.style={circle,draw=ink,line width=0.8pt,fill=sand,minimum size=8mm,inner sep=0pt,font=\small\bfseries},
   edge/.style={draw=body,line width=1.6pt},
+  pnode/.style={circle,draw=netpurpleline,line width=0.9pt,fill=netpurple,minimum size=5mm,inner sep=0pt,font=\scriptsize\bfseries},
+  gnode/.style={circle,draw=netgreenline,line width=0.9pt,fill=netgreen,minimum size=5mm,inner sep=0pt,font=\scriptsize\bfseries},
+  pedge/.style={draw=netpurpleline,line width=1.1pt},
+  gedge/.style={draw=netgreenline,line width=1.1pt},
   flowarrow/.style={-{Stealth[length=2.2mm]},line width=1.4pt},
   pill/.style={rounded corners=2.5mm,fill=sand,inner sep=1.4mm,font=\scriptsize\bfseries},
 }
@@ -116,16 +124,36 @@
 
 % =====================================================================
 \begin{frame}{HTA often lacks a connected network}{The problem}
-\begin{columns}[c,onlytextwidth]
-\column{0.62\textwidth}
-\includegraphics[width=0.92\linewidth]{figures/connected_vs_disconnected.png}
-\column{0.33\textwidth}\raggedright
+\begin{columns}[T,onlytextwidth]
+\column{0.70\textwidth}
+\begin{tikzpicture}[x=1mm,y=1mm]
+  \foreach \px/\lab/\col in {0/Connected network/body, 32/Single-arm study/bristolred, 64/Disconnected networks/bristolred}
+    \node[anchor=north,font=\scriptsize\bfseries,text=\col,text width=34mm,align=center] at (\px+14.5,-1) {\lab};
+  \foreach \px in {0,32,64} \draw[rulegrey,line width=0.6pt,rounded corners=1.5mm] (\px,0) rectangle ++(29,27);
+  % connected: triangle
+  \node[pnode] (a1) at (14.5,21.5) {A};
+  \node[pnode] (b1) at (6,7) {B};
+  \node[pnode] (c1) at (23,7) {C};
+  \draw[pedge] (a1) -- (b1) (a1) -- (c1) (b1) -- (c1);
+  % single-arm study
+  \node[gnode] (a2) at (39,12) {A};
+  \node[pnode] (b2) at (51,21) {B};
+  \node[pnode] (c2) at (55,7) {C};
+  \draw[pedge] (b2) -- (c2);
+  % disconnected sub-networks
+  \node[gnode] (a3) at (69.5,21) {};
+  \node[gnode] (b3) at (69.5,6) {};
+  \draw[gedge] (a3) -- (b3);
+  \node[pnode] (h) at (78,13.5) {};
+  \foreach \xx/\yy in {84/23, 88.5/17, 88.5/10, 84/4} { \node[pnode] (t) at (\xx,\yy) {}; \draw[pedge] (h) -- (t); }
+\end{tikzpicture}
+\column{0.27\textwidth}\raggedright
 {\headfont\LARGE\bfseries\color{bristolred}18/268}\par
-{\scriptsize\color{body}NICE appraisals used population adjustment}\par\vspace{1.5mm}
+{\scriptsize\color{body}NICE appraisals used population adjustment}\par\vspace{1mm}
 {\headfont\LARGE\bfseries\color{bristolred}16/18}\par
-{\scriptsize\color{body}of those were unanchored and used MAIC}\par\vspace{1.5mm}
+{\scriptsize\color{body}of those were unanchored and used MAIC}\par\vspace{1mm}
 {\headfont\LARGE\bfseries\color{bristolred}10/18}\par
-{\scriptsize\color{body}involved more than a single pairwise comparison}
+{\scriptsize\color{body}involved more than two treatments}
 \end{columns}
 \vfill
 {\normalsize\bfseries MAIC and STC can't keep up}\par\vspace{1.5mm}
@@ -137,7 +165,7 @@
 \vspace{1.5mm}
 {\tiny\color{muted}Source: Phillippo et al., PharmacoEconomics 2019 (NICE TAs 2010--2018)\par}
 \vspace{1mm}
-\note{\textasciitilde 1:15. NMA pools randomised trials to compare many treatments, but only when there's a path of trials joining them, like the triangle on the left. Randomisation within each trial means differences in prognostic factors between trials cancel out. Health technology assessment committees increasingly see the picture on the right: treatment A on its own, from a single-arm study or a sub-network with no common comparator between subnetworks. Comparisons across that gap are unanchored. Of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment methods, and 16 of those were unanchored comparisons using MAIC. And in over half of them, the decision involved more than two treatments, but MAIC and STC can only compare one pair of studies at a time. They also only give estimates in the aggregate study's population, and give you no way to assess whether the assumption they rest on is plausible.}
+\note{\textasciitilde 1:15. NMA pools randomised trials to compare many treatments, but only when there's a path of trials joining them, like the triangle on the left. Randomisation within each trial means differences in prognostic factors between trials cancel out. Health technology assessment committees increasingly see the other two pictures: a treatment that only comes from a single-arm study, or whole sub-networks with no common comparator between them. Comparisons across that gap are unanchored. Of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment methods, and 16 of those were unanchored comparisons using MAIC. And in over half of them, the decision involved more than two treatments, but MAIC and STC can only compare one pair of studies at a time. They also only give estimates in the aggregate study's population, and give you no way to assess whether the assumption they rest on is plausible.}
 \end{frame}
 
 % =====================================================================
