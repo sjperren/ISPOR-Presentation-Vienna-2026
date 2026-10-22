@@ -350,7 +350,7 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
   \foreach \xx/\yy in {41/37, 47/32.5, 47/24.5, 41/20} { \node[sp] (t) at (\xx,\yy) {}; \draw[pedge] (h) -- (t); }
   \node[font=\small\bfseries,text=fixorange] at (3.5,28.5) {$j'$};
   \node[font=\small\bfseries,text=fixorange] at (45.5,17) {$j$};
-  \node[anchor=north west,text width=59mm,align=left,font=\scriptsize,text=body] at (2.5,14) {Chosen using overlap ESS and clinical judgement. Can be an internal trial or an external single-arm study.};
+  \node[anchor=north west,text width=59mm,align=left,font=\scriptsize,text=body] at (2.5,14) {Chosen as the most similar pair of populations (next slide). Can be an internal trial or an external single-arm study.};
   % ---------------- Step 2 ----------------
   \node[anchor=north west,align=left,text width=59mm] at (78.5,49.5) {\eyebrow[fixorange]{Step 2 \textperiodcentered{} share one baseline}\\[0.6mm]{\footnotesize\bfseries The pair becomes one four-arm study}};
   % combined four-arm study: cross links
@@ -370,7 +370,7 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \raggedright
 \statement{Assumes the pair's adjusted baselines are identical.}
 \vspace{2mm}
-\note{\textasciitilde 0:45. The fixed baseline bridge is simpler, same network again. Step 1: pick one anchor study from each side, highlighted in orange: j prime in the disconnected part and j in the reference part, using overlap ESS and clinical judgement. Step 2: give them a single shared baseline, mu j equals mu j prime, so after adjusting for the covariates they're modelled as one four-arm study, which is what the red lines show. It assumes the pair's adjusted baselines are identical, so it carries no extra uncertainty for unobserved differences. It's what you need when only one study informs the reference sub-network, so tau-mu can't be estimated, or when you can only justify exchangeability for one specific pair. The anchor can be an internal trial or an external single-arm or observational study. Where both bridges can be fitted, we use the random bridge as the main analysis and fixed bridges as sensitivity analyses.}
+\note{\textasciitilde 0:45. The fixed baseline bridge is simpler, same network again. Step 1: pick one anchor study from each side, highlighted in orange: j prime in the disconnected part and j in the reference part, chosen as the most similar pair of populations. I'll show how we measure that on the next slide. Step 2: give them a single shared baseline, mu j equals mu j prime, so after adjusting for the covariates they're modelled as one four-arm study, which is what the red lines show. It assumes the pair's adjusted baselines are identical, so it carries no extra uncertainty for unobserved differences. It's what you need when only one study informs the reference sub-network, so tau-mu can't be estimated, or when you can only justify exchangeability for one specific pair. The anchor can be an internal trial or an external single-arm or observational study. Where both bridges can be fitted, we use the random bridge as the main analysis and fixed bridges as sensitivity analyses.}
 \end{frame}
 
 % =====================================================================
