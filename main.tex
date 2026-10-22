@@ -524,6 +524,47 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 }
 
 % =====================================================================
+\begin{frame}{Stage 1 in practice: the psoriasis baseline synthesis}{Case study \textperiodcentered{} random baseline bridge}
+\begin{columns}[t,onlytextwidth]
+\column{0.56\textwidth}
+\vspace{0pt}
+\vspace*{-3.2mm}
+\begin{tintcard}[before skip=0pt]{tealbg}
+\eyebrow[randteal]{Predictive distribution for a new study}\par\vspace{1mm}
+{\footnotesize\bfseries Placebo PASI 75 response at average covariate values\par}\vspace{1mm}
+\centering
+\begin{tikzpicture}[x=0.86mm,y=0.8mm]
+  \fill[randteal,opacity=0.25] plot coordinates {(13.7,0) (13.9,7.3) (15.5,11.4) (17.1,15.8) (18.7,20.0) (20.3,23.5) (21.9,26.2) (23.5,27.6) (25.1,28.0) (26.7,27.4) (28.3,25.9) (29.9,23.9) (31.5,21.6) (33.1,19.1) (34.7,16.5) (36.3,14.1) (37.9,11.9) (39.5,9.9) (41.1,8.1) (42.7,6.6) (44.3,5.3) (45.9,4.2) (47.5,3.3) (49.1,2.6) (49.3,0)} -- cycle;
+  \draw[randteal,line width=1.4pt] plot[smooth] coordinates {(2.7,0.0) (4.3,0.0) (5.9,0.0) (7.5,0.2) (9.1,0.7) (10.7,1.9) (12.3,4.1) (13.9,7.3) (15.5,11.4) (17.1,15.8) (18.7,20.0) (20.3,23.5) (21.9,26.2) (23.5,27.6) (25.1,28.0) (26.7,27.4) (28.3,25.9) (29.9,23.9) (31.5,21.6) (33.1,19.1) (34.7,16.5) (36.3,14.1) (37.9,11.9) (39.5,9.9) (41.1,8.1) (42.7,6.6) (44.3,5.3) (45.9,4.2) (47.5,3.3) (49.1,2.6) (50.7,2.0) (52.3,1.6) (53.9,1.2) (55.5,0.9) (57.1,0.7) (58.7,0.5) (60.3,0.4) (61.9,0.3) (63.5,0.2) (65.1,0.2) (66.7,0.1) (68.3,0.1) (69.9,0.1) (71.5,0.1) (73.1,0.0) (74.7,0.0) (76.3,0.0) (77.9,0.0) (79.5,0.0)};
+  \draw[axis] (0,0) -- (80,0);
+  \foreach \p/\lab in {0/0\%, 26.67/5\%, 53.33/10\%, 80/15\%} {
+    \draw[axis] (\p,0) -- (\p,-1); \node[font=\scriptsize,text=muted,below] at (\p,-1) {\lab}; }
+  \draw[ink,dashed,line width=0.8pt] (27.1,0) -- (27.1,30);
+  \node[font=\scriptsize\bfseries,anchor=south] at (27.1,30) {mean 5\%};
+  \node[font=\scriptsize,text=randteal,align=left,anchor=west] at (50,22) {Shaded: 95\%\\predictive interval,\\3\% to 9\%};
+\end{tikzpicture}
+\end{tintcard}
+\column{0.40\textwidth}
+\vspace{0pt}
+\raggedright
+{\footnotesize\bfseries Posterior summaries (probit scale)\par}\vspace{1.5mm}
+{\footnotesize
+\begin{tabular}{@{}l r@{}}
+\hline
+Mean baseline $m_\mu$ & $-1.64$ \;\textcolor{muted}{($-1.81$, $-1.46$)}\\
+Between-study SD $\tau_\mu$ & $0.115$ \;\textcolor{muted}{($0.029$, $0.323$)}\\
+New study $\mu_\mathrm{new}$ & $-1.64$ \;\textcolor{muted}{($-1.95$, $-1.31$)}\\
+\hline
+\end{tabular}\par}
+\vspace{4mm}
+{\small\color{body}4 placebo-controlled studies in sub-network 1 (FIXTURE, UNCOVER-1/2/3).\par}\vspace{2mm}
+{\small\color{body}$\tau_\mu$ is \textbf{small and precise}: its posterior sits far below the half-$N(0, 5^2)$ prior.\par}\vspace{2mm}
+{\small\color{body}This distribution becomes the prior for the disconnected baselines.\par}
+\end{columns}
+\note{\textasciitilde 0:45. Here's what Stage 1 actually gave us in the psoriasis example. Four placebo-controlled studies inform sub-network 1: FIXTURE and the three UNCOVER trials. Back on the probability scale, the predictive distribution says a new study's placebo PASI 75 response, at average covariate values, is about 5\%, with a 95\% predictive interval from 3\% to 9\%. Tau-mu, the between-study SD, is 0.115 on the probit scale, and its posterior has moved well below its vague half-normal prior, so this is the small-and-precise case from the previous slide: the adjusted baselines are genuinely similar. That predictive distribution is then the prior we put on ERASURE, FEATURE and JUNCTURE in Stage 2.}
+\end{frame}
+
+% =====================================================================
 % Forest plot: probability of PASI 75, FIXTURE population, ML-NMR (Appendix Table A3)
 \newcommand{\forestpanel}[3]{% #1 x-offset (cm), #2 title, #3 list of mean/lo/hi/colour
   \begin{scope}[xshift=#1cm]
