@@ -334,34 +334,42 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 % =====================================================================
 \begin{frame}{The fixed baseline bridge: merge an anchor pair}{Bridge 2}
 \centering
-\begin{tikzpicture}[x=1mm,y=1mm]
-  \draw[rulegrey,line width=0.8pt,rounded corners=1.5mm,fill=white] (0,0) rectangle (36,30);
-  \draw[rulegrey,line width=0.8pt,rounded corners=1.5mm,fill=white] (46,0) rectangle (82,30);
-  \fill[orangebg,rounded corners=1.5mm] (94,0) rectangle (140,30);
-  \fill[fixorange] (94,29) rectangle (140,30);
-  \node[anchor=north west,align=left] at (2,28) {\eyebrow[muted]{Sub-network 1}\\[0.5mm]{\small\bfseries Anchor study $j$}};
-  \node[pill] at (9,12) {PBO}; \node[pill] at (19,12) {A};
-  \node[anchor=west,font=\large] at (2,4) {$\mu_j$};
-  \node[font=\Huge\bfseries,text=fixorange] at (41,15) {+};
-  \node[anchor=north west,align=left] at (48,28) {\eyebrow[muted]{Sub-network 2}\\[0.5mm]{\small\bfseries Anchor study $j'$}};
-  \node[pill] at (53,12) {C}; \node[pill] at (62,12) {D};
-  \node[anchor=west,font=\large] at (48,4) {$\mu_{j'}$};
-  \draw[fixorange,flowarrow] (84,15) -- (92,15);
-  \node[anchor=north west,align=left] at (96,27.5) {\eyebrow[fixorange]{Bridged}\\[0.5mm]{\small\bfseries One combined study}};
-  \node[pill,fill=white] at (103,12) {PBO}; \node[pill,fill=white] at (112,12) {A};
-  \node[pill,fill=white] at (120,12) {C}; \node[pill,fill=white] at (128,12) {D};
-  \node[anchor=west,font=\large] at (96,4) {$\mu_j = \mu_{j'} = \mu_\mathrm{bridge}$};
+\begin{tikzpicture}[x=1mm,y=1mm,
+    sp/.style={pnode,minimum size=4.6mm},
+    sg/.style={gnode,minimum size=4.6mm}]
+  \fill[orangebg,rounded corners=1.5mm] (0,0) rectangle (64,51);
+  \fill[orangebg,rounded corners=1.5mm] (76,0) rectangle (140,51);
+  \draw[fixorange,flowarrow] (65.5,27) -- (74.5,27);
+  % ---------------- Step 1 ----------------
+  \node[anchor=north west,align=left,text width=59mm] at (2.5,49.5) {\eyebrow[fixorange]{Step 1 \textperiodcentered{} pick an anchor pair}\\[0.6mm]{\footnotesize\bfseries One study from each sub-network}};
+  {'gx': 9, 'hx': 34, 'ax': 41, 'bx': 47, 'jpx': 3.5, 'jx': 35}nchor halos
+  \draw[fixorange,opacity=0.45,line width=6pt,line cap=round] (9,36.5) -- (9,20.5);
+  \draw[fixorange,opacity=0.45,line width=6pt,line cap=round] (34,28.5) -- (41,20);
+  \node[sg,minimum size=6mm] (c) at (9,36.5) {}; \node[sg,minimum size=6mm] (d) at (9,20.5) {}; \draw[gedge,line width=1.3pt] (c) -- (d);
+  \node[sp,minimum size=6mm,font=\tiny\bfseries] (h) at (34,28.5) {PBO};
+  \foreach \xx/\yy in {41/37, 47/32.5, 47/24.5, 41/20} { \node[sp] (t) at (\xx,\yy) {}; \draw[pedge] (h) -- (t); }
+  \node[font=\small\bfseries,text=fixorange] at (3.5,28.5) {$j'$};
+  \node[font=\small\bfseries,text=fixorange] at (34.5,21.5) {$j$};
+  \node[anchor=north west,text width=59mm,align=left,font=\scriptsize,text=body] at (2.5,14) {Chosen using overlap ESS and clinical judgement. Can be an internal trial or an external single-arm study.};
+  % ---------------- Step 2 ----------------
+  \node[anchor=north west,align=left,text width=59mm] at (78.5,49.5) {\eyebrow[fixorange]{Step 2 \textperiodcentered{} share one baseline}\\[0.6mm]{\footnotesize\bfseries The pair becomes one combined study}};
+  {'gx': 85, 'hx': 110, 'ax': 117, 'bx': 123, 'jpx': 79.5, 'jx': 111}nchor halos
+  \draw[fixorange,opacity=0.45,line width=6pt,line cap=round] (85,36.5) -- (85,20.5);
+  \draw[fixorange,opacity=0.45,line width=6pt,line cap=round] (110,28.5) -- (117,20);
+  \node[sg,minimum size=6mm] (c) at (85,36.5) {}; \node[sg,minimum size=6mm] (d) at (85,20.5) {}; \draw[gedge,line width=1.3pt] (c) -- (d);
+  \node[sp,minimum size=6mm,font=\tiny\bfseries] (h) at (110,28.5) {PBO};
+  \foreach \xx/\yy in {117/37, 123/32.5, 123/24.5, 117/20} { \node[sp] (t) at (\xx,\yy) {}; \draw[pedge] (h) -- (t); }
+  \node[font=\small\bfseries,text=fixorange] at (79.5,28.5) {$j'$};
+  \node[font=\small\bfseries,text=fixorange] at (110.5,21.5) {$j$};
+  \draw[bristolred,line width=1.6pt] (87,28.5) -- (h);
+  \node[font=\small,text=bristolred] at (97,32) {$\mu_j = \mu_{j'}$};
+  \node[anchor=north west,text width=59mm,align=left,font=\scriptsize,text=body] at (78.5,14) {Needed when only one study informs the reference, so $\tau_\mu$ can't be estimated. No extra uncertainty for unobserved differences.};
 \end{tikzpicture}
 \vfill
-\begin{columns}[t,onlytextwidth]
-\column{0.31\textwidth}\point[fixorange]{Needed when a single study informs the reference, so $\tau_\mu$ can't be estimated}
-\column{0.31\textwidth}\point[fixorange]{Or when exchangeability is only plausible for one specific pair}
-\column{0.31\textwidth}\point[fixorange]{Anchor can be an internal trial or an external single-arm study}
-\end{columns}
-\vfill
-\vspace{3mm}\raggedright\statement{Assumes the pair's adjusted baselines are identical.}
+\raggedright
+\statement{Assumes the pair's adjusted baselines are identical.}
 \vspace{2mm}
-\note{\textasciitilde 0:45. The fixed baseline bridge is simpler. Pick one anchor study from each side and give them a single shared baseline, so after adjusting for the covariates they're modelled as one multi-arm study. It assumes the pair's adjusted baselines are identical, so it carries no extra uncertainty for unobserved differences. It's what you need when only one study informs the reference sub-network, so tau-mu can't be estimated, or when you can only justify exchangeability for one specific pair. The anchor can be an internal trial or an external single-arm or observational study. Where both bridges can be fitted, we use the random bridge as the main analysis and fixed bridges as sensitivity analyses.}
+\note{\textasciitilde 0:45. The fixed baseline bridge is simpler, same network again. Step 1: pick one anchor study from each side, highlighted in orange: j prime in the disconnected part and j in the reference part, using overlap ESS and clinical judgement. Step 2: give them a single shared baseline, mu j equals mu j prime, so after adjusting for the covariates they're modelled as one multi-arm study. It assumes the pair's adjusted baselines are identical, so it carries no extra uncertainty for unobserved differences. It's what you need when only one study informs the reference sub-network, so tau-mu can't be estimated, or when you can only justify exchangeability for one specific pair. The anchor can be an internal trial or an external single-arm or observational study. Where both bridges can be fitted, we use the random bridge as the main analysis and fixed bridges as sensitivity analyses.}
 \end{frame}
 
 % =====================================================================
