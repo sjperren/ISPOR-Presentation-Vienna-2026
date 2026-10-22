@@ -609,14 +609,17 @@ New study $\mu_\mathrm{new}$ & $-1.64$ \;\textcolor{muted}{($-1.95$, $-1.31$)}\\
 \newcommand{\takeaway}[3]{%
   {\color{rulegrey}\rule{\linewidth}{0.8pt}}\par\vspace{1.5mm}
   \begin{minipage}[t]{8mm}{\headfont\huge\bfseries\color{bristolred}#1}\end{minipage}%
-  \begin{minipage}[t]{\dimexpr\linewidth-8mm}{\large\bfseries #2}\par\vspace{0.8mm}{\small\color{body}#3}\end{minipage}\par\vspace{3mm}}
+  \begin{minipage}[t]{\dimexpr\linewidth-8mm}{\large\bfseries #2}\par\vspace{0.5mm}{\footnotesize\color{body}#3}\end{minipage}\par\vspace{1.8mm}}
 \renewcommand{\footleft}{Implemented in the multinma R package}
 \begin{frame}{What ML-NMR-B gives you}{Take-homes}
-\vspace{2mm}
+\vspace*{-3mm}
 \takeaway{1}{Connects what couldn't be connected}{Disconnected networks and single-arm studies, networks of any size, estimates in any target population.}
 \takeaway{2}{Allows for unobserved differences}{The random baseline bridge carries residual between-study variation through as uncertainty.}
-\takeaway{3}{Makes the key assumption judgeable}{$\tau_\mu$, overlap ESS and predictive checks, with sensitivity analyses showing how far conclusions depend on the bridge.}
-\note{\textasciitilde 0:45. Three things to take away. One: ML-NMR-B brings ML-NMR to disconnected networks and single-arm studies, at any network size and in any target population. Two: the random baseline bridge allows for the unobserved differences between studies that are almost always there, by carrying them through as uncertainty. Three: the assumption every unanchored comparison makes is now something you can judge, through tau-mu, overlap and predictive checks, with sensitivity analyses showing how much the bridge matters. It's all implemented in multinma.}
+\takeaway{3}{Makes the key assumption judgeable}{$\tau_\mu$, overlap ESS and predictive checks, plus sensitivity analyses across bridges.}
+\begin{tintcard}{tealbg}
+{\footnotesize\textcolor{randteal}{\textbf{Next: a simulation study}}\textcolor{body}{\ will test bias and coverage of each bridging strategy, and how much baseline heterogeneity a bridge can tolerate.}\par}
+\end{tintcard}
+\note{\textasciitilde 0:45. Three things to take away. One: ML-NMR-B brings ML-NMR to disconnected networks and single-arm studies, at any network size and in any target population. Two: the random baseline bridge allows for the unobserved differences between studies that are almost always there, by carrying them through as uncertainty. Three: the assumption every unanchored comparison makes is now something you can judge, through tau-mu, overlap and predictive checks, with sensitivity analyses showing how much the bridge matters. It's all implemented in multinma. Next, we'll run a simulation study to test the bias and coverage of each bridging strategy, and how much baseline heterogeneity a bridge can tolerate before it breaks down.}
 \end{frame}
 
 % =====================================================================
