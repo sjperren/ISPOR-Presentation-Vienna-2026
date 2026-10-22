@@ -1,7 +1,7 @@
 % ISPOR Europe 2026, Vienna - ML-NMR-B podium talk
 % Compile with pdfLaTeX. To show speaker notes, uncomment the \setbeameroption line below.
 \documentclass[aspectratio=169,10pt,t]{beamer}
-% \setbeameroption{show notes on second screen=right}
+ \setbeameroption{show notes on second screen=right}
 
 \usepackage[T1]{fontenc}
 \usepackage{bm}
@@ -110,7 +110,7 @@
 \vspace{1mm}
 {\footnotesize\color{muted}University of Bristol\par}
 \vspace*{3mm}
-\note{\textasciitilde 15 s. Hi, I'm Sam, a PhD student at Bristol. This is joint work with Nicky Welton, Hugo Pedder and David Phillippo. In the next 12 minutes: why disconnected networks are a problem, how we extend ML-NMR to bridge them, and how you can judge whether a bridge is believable.}
+\note{\textasciitilde 15 s. Hi, I'm Sam, a PhD student at Bristol. My presentation will cover, why disconnected networks in NMA are a problem, how we extend ML-NMR to bridge them, and how you can judge whether a bridge is plausible.}
 \end{frame}
 }
 
@@ -137,7 +137,7 @@
 \vspace{1.5mm}
 {\tiny\color{muted}Source: Phillippo et al., PharmacoEconomics 2019 (NICE TAs 2010--2018)\par}
 \vspace{1mm}
-\note{\textasciitilde 1:15. NMA pools randomised trials to compare many treatments, but only when there's a path of trials joining them, like the triangle on the left. Randomisation within each trial means differences in prognostic factors between trials cancel out. HTA committees increasingly see the picture on the right: treatment A on its own, from a single-arm study or a sub-network with no common comparator. Comparisons across that gap are unanchored. Of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment, and 16 of those were unanchored comparisons using MAIC. But over half had more treatments than one pairwise comparison, which MAIC and STC can't handle. They also only give estimates in the aggregate study's population, and give you no way to assess whether the assumption they rest on is plausible.}
+\note{\textasciitilde 1:15. NMA pools randomised trials to compare many treatments, but only when there's a path of trials joining them, like the triangle on the left. Randomisation within each trial means differences in prognostic factors between trials cancel out. Health technology assessment committees increasingly see the picture on the right: treatment A on its own, from a single-arm study or a sub-network with no common comparator between subnetworks. Comparisons across that gap are unanchored. Of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment methods, and 16 of those were unanchored comparisons using MAIC. And in over half of them, the decision involved more than two treatments, but MAIC and STC can only compare one pair of studies at a time. They also only give estimates in the aggregate study's population, and give you no way to assess whether the assumption they rest on is plausible.}
 \end{frame}
 
 % =====================================================================
