@@ -294,7 +294,7 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
   \fill[tealbg,rounded corners=1.5mm] (76,0) rectangle (140,51);
   \draw[randteal,flowarrow] (65.5,27) -- (74.5,27);
   % ---------------- Stage 1 ----------------
-  \node[anchor=north west,align=left] at (2.5,49.5) {\eyebrow[randteal]{Stage 1 \textperiodcentered{} sub-network 1 only}\\[0.6mm]{\footnotesize\bfseries Synthesise the baselines of the reference studies}};
+  \node[anchor=north west,align=left,text width=59mm] at (2.5,49.5) {\eyebrow[randteal]{Stage 1 \textperiodcentered{} sub-network 1 only}\\[0.6mm]{\footnotesize\bfseries Synthesise the study baselines}};
   % faded disconnected pair (not used)
   \begin{scope}[opacity=0.25]
     \node[sg] (c1) at (9,36.5) {}; \node[sg] (d1) at (9,20.5) {}; \draw[gedge] (c1) -- (d1);
@@ -314,7 +314,7 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
   \node[font=\scriptsize] at (16,3.5) {$\mu_j \sim N(m_\mu, \tau_\mu^2)$};
   \node[font=\scriptsize] at (49,3.5) {predictive $\mu_\mathrm{new}$};
   % ---------------- Stage 2 ----------------
-  \node[anchor=north west,align=left] at (78.5,49.5) {\eyebrow[randteal]{Stage 2 \textperiodcentered{} whole network}\\[0.6mm]{\footnotesize\bfseries Prior on the disconnected baselines}};
+  \node[anchor=north west,align=left,text width=59mm] at (78.5,49.5) {\eyebrow[randteal]{Stage 2 \textperiodcentered{} whole network}\\[0.6mm]{\footnotesize\bfseries Prior on the disconnected baselines}};
   \node[sg,minimum size=6mm] (c2) at (85,36.5) {}; \node[sg,minimum size=6mm] (d2) at (85,20.5) {}; \draw[gedge,line width=1.3pt] (c2) -- (d2);
   \node[sp,minimum size=6mm,font=\tiny\bfseries] (h2) at (121,28.5) {PBO};
   \foreach \xx/\yy in {128/37, 134/32.5, 134/24.5, 128/20} { \node[sp] (t) at (\xx,\yy) {}; \draw[pedge] (h2) -- (t); }
