@@ -477,39 +477,49 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 
 % =====================================================================
 \newcommand{\bridgetag}[3]{\begin{tcolorbox}[enhanced,colback=#1,frame hidden,borderline west={1.2mm}{0mm}{#2},arc=1mm,left=2.5mm,right=1mm,top=1mm,bottom=1mm,fontupper=\scriptsize]#3\end{tcolorbox}}
+{\renewcommand{\footleft}{Edges: navy AgD, green IPD \textperiodcentered{} \%: overlap ESS of the anchor pair (external studies paired with IXORA-S)}
 \begin{frame}{Psoriasis: break a network, rebuild it}{Case study}
 \begin{columns}[c,onlytextwidth]
-\column{0.27\textwidth}
+\column{0.30\textwidth}
 \centering
-\includegraphics[height=28mm]{figures/network_full.png}\par
+\begin{minipage}[b][29.5mm][b]{\linewidth}\centering
+\includegraphics[width=\linewidth,height=27mm,keepaspectratio]{figures/network_full.png}
+\end{minipage}\par\vspace{1mm}
 {\scriptsize\bfseries Fully connected (benchmark)}
-\column{0.05\textwidth}
-\centering\tikz\draw[bristolred,flowarrow] (0,0) -- (5mm,0);
-\column{0.24\textwidth}
+\column{0.30\textwidth}
 \centering
-\includegraphics[height=28mm]{figures/network_disconnected.png}\par
+\begin{minipage}[b][29.5mm][b]{\linewidth}\centering
+\begin{tikzpicture}
+  \node[inner sep=0,anchor=south west] (img) at (0,0) {\includegraphics[width=\linewidth,height=27mm,keepaspectratio]{figures/network_disconnected.png}};
+  \begin{scope}[x={(img.south east)},y={(img.north west)}]
+    \node[draw=muted,fill=white,rounded corners=1mm,inner sep=0.8mm,font=\tiny\bfseries,align=center] at (0.13,0.80) {Sub-network 2\\(disconnected)};
+    \node[draw=muted,fill=white,rounded corners=1mm,inner sep=0.8mm,font=\tiny\bfseries,align=center,anchor=south] at (0.68,1.01) {Sub-network 1 (reference)};
+  \end{scope}
+\end{tikzpicture}
+\end{minipage}\par\vspace{1mm}
 {\scriptsize\bfseries\color{bristolred}Artificially disconnected}
-\column{0.40\textwidth}
-\begin{itemize}\setlength{\itemsep}{1mm}\small
+\column{0.36\textwidth}
+\begin{itemize}\setlength{\itemsep}{1mm}\footnotesize
 \item 9 RCTs: 4 IPD, 5 AgD
 \item 6 active treatments and placebo
 \item PASI 75, 90 and 100 at 12 weeks
-\item Secukinumab cut off from placebo
-\item Each bridge vs the connected ML-NMR
+\item Secukinumab cut off from PBO
+\item Each bridge vs the full network
 \end{itemize}
 \end{columns}
 \vfill
 \begin{tcbraster}[raster columns=3,raster equal height,raster column skip=2.5mm,raster row skip=1.5mm]
-\bridgetag{tealbg}{randteal}{\textbf{Random-1P} \textperiodcentered{} prior on ERASURE only}
-\bridgetag{orangebg}{fixorange}{\textbf{Fixed} \textperiodcentered{} UNCOVER-3 + ERASURE (97\%)}
-\bridgetag{sand}{extgrey}{\textbf{External} \textperiodcentered{} IXORA-S + PROSPECT (89\%)}
+\bridgetag{tealbg}{randteal}{\textbf{Random-1P} \textperiodcentered{} prior on ERASURE}
+\bridgetag{orangebg}{fixorange}{\textbf{Fixed} \textperiodcentered{} UNC-3 + ERA (97\%)}
+\bridgetag{sand}{extgrey}{\textbf{External} \textperiodcentered{} PROSPECT (89\%)}
 \bridgetag{tealbg}{randteal}{\textbf{Random-3P} \textperiodcentered{} prior on all three}
-\bridgetag{orangebg}{fixorange}{\textbf{Fixed} \textperiodcentered{} JUNCTURE + IXORA-S (74\%)}
-\bridgetag{sand}{extgrey}{\textbf{External} \textperiodcentered{} IXORA-S + Chiricozzi (77\%)}
+\bridgetag{orangebg}{fixorange}{\textbf{Fixed} \textperiodcentered{} JUNC + IXOR (74\%)}
+\bridgetag{sand}{extgrey}{\textbf{External} \textperiodcentered{} Chiricozzi (77\%)}
 \end{tcbraster}
-\vspace{1mm}{\tiny\color{muted}Edges: navy AgD, green IPD \textperiodcentered{} node colour: treatment class \textperiodcentered{} bracketed: overlap ESS\% between the anchor studies\par}\vspace{1mm}
+
 \note{\textasciitilde 1:00. To test this we need a ground truth, so we take a connected network and break it. It's a plaque psoriasis network: nine RCTs, six active treatments plus placebo, four with IPD and five with aggregate data, outcomes PASI 75, 90 and 100. We remove CLEAR, the placebo arms of the secukinumab trials and the secukinumab arms of FIXTURE, so secukinumab is cut off from placebo. Then we rebuild it six ways. Two random bridges, with the predictive prior on one or all three disconnected studies. Two internal fixed bridges, the highest and a lower overlap pair. And two external fixed bridges through observational studies. The lower-overlap and external bridges are there to show how the diagnostics behave, not as choices we'd recommend. Each is compared with the fully connected ML-NMR.}
 \end{frame}
+}
 
 % =====================================================================
 % Forest plot: probability of PASI 75, FIXTURE population, ML-NMR (Appendix Table A3)
