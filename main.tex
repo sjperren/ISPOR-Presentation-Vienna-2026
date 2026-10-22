@@ -480,13 +480,15 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 {\renewcommand{\footleft}{Edges: navy AgD, green IPD \textperiodcentered{} \%: overlap ESS of the anchor pair (external studies paired with IXORA-S)}
 \begin{frame}{Psoriasis: break a network, rebuild it}{Case study}
 \begin{columns}[c,onlytextwidth]
-\column{0.30\textwidth}
+\column{0.29\textwidth}
 \centering
 \begin{minipage}[b][29.5mm][b]{\linewidth}\centering
 \includegraphics[width=\linewidth,height=27mm,keepaspectratio]{figures/network_full.png}
 \end{minipage}\par\vspace{1mm}
 {\scriptsize\bfseries Fully connected (benchmark)}
-\column{0.30\textwidth}
+\column{0.05\textwidth}
+\centering\tikz\draw[bristolred,flowarrow] (0,0) -- (5mm,0);
+\column{0.29\textwidth}
 \centering
 \begin{minipage}[b][29.5mm][b]{\linewidth}\centering
 \begin{tikzpicture}
@@ -498,11 +500,11 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \end{tikzpicture}
 \end{minipage}\par\vspace{1mm}
 {\scriptsize\bfseries\color{bristolred}Artificially disconnected}
-\column{0.36\textwidth}
+\column{0.33\textwidth}
 \begin{itemize}\setlength{\itemsep}{1mm}\footnotesize
 \item 9 RCTs: 4 IPD, 5 AgD
 \item 6 active treatments and placebo
-\item PASI 75, 90 and 100 at 12 weeks
+\item PASI 75/90/100 at 12 weeks
 \item Secukinumab cut off from PBO
 \item Each bridge vs the full network
 \end{itemize}
