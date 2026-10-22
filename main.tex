@@ -248,33 +248,37 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 
 % =====================================================================
 \begin{frame}{Bridge the gap through the study baselines}{The idea}
+\vspace{2mm}
+\begin{columns}[c,onlytextwidth]
+\column{0.58\textwidth}
 \centering
-\begin{tikzpicture}[x=1mm,y=0.72mm,
+\begin{tikzpicture}[x=0.95mm,y=0.85mm,
     bigp/.style={pnode,minimum size=6.8mm,font=\small\bfseries},
     bigg/.style={gnode,minimum size=6.8mm,font=\small\bfseries}]
   % sub-network 2 (disconnected): green pair
-  \node[bigg] (c) at (38,30) {C};
-  \node[bigg] (d) at (38,4) {D};
+  \node[bigg] (c) at (10,30) {C};
+  \node[bigg] (d) at (10,4) {D};
   \draw[gedge,line width=1.6pt] (c) -- (d);
   % sub-network 1 (reference): purple star around PBO
-  \node[bigp,font=\scriptsize\bfseries] (pbo) at (82,17) {PBO};
-  \foreach \xx/\yy/\lab in {93/34/A, 104/25/B, 104/9/E, 93/0/F} {
+  \node[bigp,font=\scriptsize\bfseries] (pbo) at (54,17) {PBO};
+  \foreach \xx/\yy/\lab in {65/34/A, 76/25/B, 76/9/E, 65/0/F} {
     \node[bigp] (t) at (\xx,\yy) {\lab}; \draw[pedge,line width=1.6pt] (pbo) -- (t); }
   % the bridge
-  \draw[bristolred,densely dotted,line width=1.8pt] (40.5,17) -- (pbo);
-  \node[font=\Large,text=bristolred] at (59,24) {$\mu_{j'} = {?}$};
-  \node[font=\scriptsize\bfseries,text=bristolred] at (59,10.5) {no randomised link};
+  \draw[bristolred,densely dotted,line width=1.8pt] (12.5,17) -- (pbo);
+  \node[font=\Large,text=bristolred] at (31,23.5) {$\mu_{j'} = {?}$};
+  \node[font=\scriptsize\bfseries,text=bristolred] at (31,11) {no randomised link};
   % labels
-  \node[anchor=north,font=\scriptsize\bfseries,text=netgreenline,align=center] at (30,-4) {Sub-network 2\\disconnected studies $j'$};
-  \node[anchor=north,font=\scriptsize\bfseries,text=netpurpleline,align=center] at (92,-4) {Sub-network 1\\contains the reference (PBO)};
+  \node[anchor=north,font=\scriptsize\bfseries,text=netgreenline,align=center] at (10,-4) {Sub-network 2\\disconnected studies $j'$};
+  \node[anchor=north,font=\scriptsize\bfseries,text=netpurpleline,align=center] at (64,-4) {Sub-network 1\\contains PBO};
 \end{tikzpicture}
-\vfill
-{\Large $\eta_{j'k}(\bm{x}) = \colorbox{pinkbg}{$\color{bristolred}\mu_{j'}$} + \bm{x}^T(\bm{\beta}_1 + \bm{\beta}_{2k}) + \gamma_k$}\par\vspace{3mm}
-\begin{columns}[t,onlytextwidth]
-\column{0.48\textwidth}\point[netpurpleline]{Treatment and covariate effects: still estimated from each sub-network's own trials}
-\column{0.48\textwidth}\point{Missing: $\mu_{j'}$, the outcome on PBO in the disconnected studies. \textbf{The bridge supplies it.}}
+\column{0.38\textwidth}
+\point[netpurpleline]{\small Treatment and covariate effects are still estimated from each sub-network's own trials}\par\vspace{5mm}
+\point{\small Missing: $\mu_{j'}$, the outcome on PBO in the disconnected studies.\par\vspace{1mm}\textbf{The bridge supplies it.}}
 \end{columns}
-\vspace{2mm}
+\vfill
+\centering
+{\Large $\eta_{j'k}(\bm{x}) = \colorbox{pinkbg}{$\color{bristolred}\mu_{j'}$} + \bm{x}^T(\bm{\beta}_1 + \bm{\beta}_{2k}) + \gamma_k$}\par
+\vspace{4mm}
 \note{\textasciitilde 0:45. Here's the set-up, using the same disconnected network as before. Sub-network 1, in purple, has the reference treatment, placebo. Sub-network 2, in green, has no randomised path back to it, or it could be a single-arm study. Look at the linear predictor: treatment effects and covariate effects in sub-network 2 are still identified from its own trials. What's missing is mu j-prime, the study baseline: the adjusted outcome on placebo in those disconnected studies, which those studies can't tell us because placebo isn't observed there. So that's all the bridge has to supply. We call this ML-NMR with bridging, ML-NMR-B, and there are two ways to build the bridge.}
 \end{frame}
 
