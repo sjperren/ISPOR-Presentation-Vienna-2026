@@ -419,12 +419,12 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \end{card}
 \end{tcbraster}
 {\tiny\color{body}Illustrative covariate distributions: \textcolor{studyblue}{solid blue} study A, \textcolor{studyochre}{dashed orange} study B\par}
-\vspace{2mm}
 \begin{tintcard}{sand}
-\textcolor{bristolred}{\large$\triangle$}\hspace{2mm}{\footnotesize Overlap ESS\% only sees observed covariates: it shows how far the model extrapolates, not whether the bridge is biased.}
+{\footnotesize\textbf{Why overlap?} Similar on observed covariates $\Rightarrow$ more likely similar on unobserved ones, with clinical input.\par}\vspace{0.8mm}
+{\footnotesize\textcolor{bristolred}{\textbf{But no guarantee:}} it only sees observed covariates, so it shows extrapolation, not bias.\par}
 \end{tintcard}
 \vspace{1mm}
-\note{\textasciitilde 1:00. How do you pick which studies to bridge? We want populations that look alike across their whole covariate distribution, not just their means. We pool the IPD with pseudo-IPD simulated from the aggregate data, fit a logistic regression for which study each person came from, and give each person a weight equal to their probability of belonging to the other study. If the populations overlap, like on the left, you can't tell who came from where, weights sit near 0.5 and the effective sample size stays high. If they don't, like on the right, weights collapse and the overlap ESS drops. Alongside clinical judgement, that picks the anchor. One caveat we'll see in the case study: it only sees the observed covariates, so it tells you how far you're extrapolating, not whether you're biased.}
+\note{\textasciitilde 1:00. How do you pick which studies to bridge? We want populations that look alike across their whole covariate distribution, not just their means. We pool the IPD with pseudo-IPD simulated from the aggregate data, fit a logistic regression for which study each person came from, and give each person a weight equal to their probability of belonging to the other study. If the populations overlap, like on the left, you can't tell who came from where, weights sit near 0.5 and the effective sample size stays high. If they don't, like on the right, weights collapse and the overlap ESS drops. Why does observed overlap matter if we adjust for those covariates anyway? Because populations that look alike on what we can measure are more likely to be alike on what we can't, and clinical expertise covers the rest, things like trial design or background care. Together, that picks the anchor. One caveat we'll see in the case study: it only sees the observed covariates, so it tells you how far you're extrapolating, not whether you're biased.}
 \end{frame}
 
 % =====================================================================
