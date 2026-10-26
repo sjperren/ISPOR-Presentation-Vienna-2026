@@ -143,47 +143,18 @@
 {\large $d_{AC} = d_{AB} + d_{BC}$\par}
 \end{card}
 \begin{card}
-\eyebrow{Constancy of relative effects}
+\eyebrow{Key assumption}
 
-\centering
-\begin{tikzpicture}[x=1mm,y=0.6mm]
-  \draw[axis] (15,0) -- (62,0);
-  \node[font=\tiny,text=muted,anchor=north] at (38.5,-1) {outcome scale, e.g.\ log-odds};
-  % AB trial
-  \node[font=\scriptsize\bfseries,anchor=east] at (14,32) {AB trial};
-  \draw[ink,-{Stealth[length=2mm]},line width=1.2pt] (19,32) -- (31.5,32);
-  \node[pnode,minimum size=4mm,font=\tiny\bfseries,inner sep=0pt] at (18,32) {A};
-  \node[pnode,minimum size=4mm,font=\tiny\bfseries,inner sep=0pt] at (33,32) {B};
-  \node[font=\scriptsize,anchor=south] at (25.5,33) {$d_{AB}$};
-  % BC trial
-  \node[font=\scriptsize\bfseries,anchor=east] at (14,19) {BC trial};
-  \draw[ink,-{Stealth[length=2mm]},line width=1.2pt] (40,19) -- (50.5,19);
-  \node[pnode,minimum size=4mm,font=\tiny\bfseries,inner sep=0pt] at (39,19) {B};
-  \node[pnode,minimum size=4mm,font=\tiny\bfseries,inner sep=0pt] at (52,19) {C};
-  \node[font=\scriptsize,anchor=south] at (45.5,20) {$d_{BC}$};
-  \draw[muted,densely dotted,line width=0.8pt] (33,29) -- (39,22);
-  % ghost A: the AB effect carried into the BC population
-  \draw[netpurpleline,dashed,-{Stealth[length=2mm]},line width=1pt,opacity=0.6] (25,19) -- (37.5,19);
-  \node[circle,draw=netpurpleline,dashed,line width=0.8pt,fill=white,minimum size=4mm,font=\tiny\bfseries,text=netpurpleline,inner sep=0pt] at (24,19) {A};
-  \node[font=\tiny,text=netpurpleline,anchor=south] at (31,20) {$d_{AB}$ assumed};
-  % AC indirect
-  \node[font=\scriptsize\bfseries,anchor=east,text=bristolred] at (14,4) {AC indirect};
-  \draw[bristolred,dashed,-{Stealth[length=2mm]},line width=1.2pt] (25,4) -- (50.5,4);
-  \draw[bristolred,line width=0.8pt] (39,2.5) -- (39,5.5);
-  \node[pnode,minimum size=4mm,font=\tiny\bfseries,inner sep=0pt] at (24,4) {A};
-  \node[pnode,minimum size=4mm,font=\tiny\bfseries,inner sep=0pt] at (52,4) {C};
-  \node[font=\scriptsize,text=bristolred,anchor=south] at (38,5.5) {$d_{AB} + d_{BC}$};
-\end{tikzpicture}
-
-\raggedright
-{\scriptsize\color{body}A was never observed in the BC population: we \textit{assume} its effect vs B carries over, which needs effect modifiers balanced. Different absolute levels are fine.}
+\vspace{1mm}
+{\headfont\Large\bfseries\color{bristolred}Constancy of relative effects\par}
+\vspace{2.5mm}
+{\headfont\large The effect of A vs B is the same in every trial, whichever trial it was measured in.\par}
+\vspace{3mm}
+{\small\color{body}This is what lets us add $d_{AB}$ and $d_{BC}$ to get $d_{AC}$. It holds if \textbf{effect modifiers} are balanced across trials.\par}
 \end{card}
 \end{tcbraster}
 \vfill
-\raggedright
-\statement{NMA relies on \textit{relative} effects, never on absolute outcomes matching.}
-\vspace{2mm}
-\note{\textasciitilde 0:40. A quick reminder of NMA. If we have trials of A versus B and B versus C, we can compare A with C indirectly through the common comparator B: d AC equals d AB plus d BC. Do that across a whole network and you compare many treatments at once, as long as every treatment is joined by a path of randomised trials. The key assumption is constancy of relative effects. On the right, the same thing on the outcome scale. In the AB trial and the BC trial, B sits at different absolute levels, because the populations differ in prognostic factors, and that's fine, randomisation within each trial cancels it out. What has to hold is that the relative effects carry across trials. We never saw A in the BC trial's population, the dashed A, but we assume the effect of A versus B we measured in the AB trial would be the same there. That's constancy of relative effects, and it's what lets us add d AB and d BC to get A versus C. That means effect modifiers must be balanced across trials. So NMA only ever relies on relative effects lining up, never absolute outcomes. Hold on to that, because it's exactly what breaks when the network is disconnected.}
+\note{\textasciitilde 0:40. A quick reminder of NMA. If we have trials of A versus B and trials of B versus C, we can compare A with C indirectly through the common comparator B: d AC equals d AB plus d BC. Do that across a whole network and you can compare many treatments at once, as long as every treatment is joined by a path of randomised trials. The key assumption is constancy of relative effects: the effect of A versus B is the same in every trial, whichever trial it was measured in. That's what lets us add the two effects together, and it holds as long as effect modifiers are balanced across the trials. Hold on to that, because it's exactly what we lose when the network is disconnected.}
 \end{frame}
 
 {\renewcommand{\footleft}{S. J. Perren \textperiodcentered{} University of Bristol \quad\textperiodcentered\quad Source: Phillippo et al., PharmacoEconomics 2019 (NICE TAs 2010--2018)}
