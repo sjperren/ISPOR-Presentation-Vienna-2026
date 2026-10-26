@@ -601,13 +601,13 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \begin{tcbraster}[raster columns=3,raster equal height,raster column skip=2.5mm,raster row skip=1.5mm]
 \bridgetag{tealbg}{randteal}{\textbf{Random-1P} \textperiodcentered{} prior on ERASURE}
 \bridgetag{orangebg}{fixorange}{\textbf{Fixed} \textperiodcentered{} UNC-3 + ERA (97\%)}
-\bridgetag{sand}{extgrey}{\textbf{External} \textperiodcentered{} PROSPECT (89\%)}
+\bridgetag{sand}{extgrey}{\textbf{Single-arm} \textperiodcentered{} PROSPECT (89\%)}
 \bridgetag{tealbg}{randteal}{\textbf{Random-3P} \textperiodcentered{} prior on all three}
 \bridgetag{orangebg}{fixorange}{\textbf{Fixed} \textperiodcentered{} JUNC + IXOR (74\%)}
-\bridgetag{sand}{extgrey}{\textbf{External} \textperiodcentered{} Chiricozzi (77\%)}
+\bridgetag{sand}{extgrey}{\textbf{Single-arm} \textperiodcentered{} Chiricozzi (77\%)}
 \end{tcbraster}
 
-\note{\textasciitilde 1:00. To test this we need a ground truth, so we take a connected network and break it. It's a plaque psoriasis network: nine RCTs, six active treatments plus placebo, four with IPD and five with aggregate data, outcomes PASI 75, 90 and 100. We remove CLEAR, the placebo arms of the secukinumab trials and the secukinumab arms of FIXTURE, so secukinumab is cut off from placebo. Then we rebuild it six ways. Two random bridges, with the predictive prior on one or all three disconnected studies. Two internal fixed bridges, the highest and a lower overlap pair. And two external fixed bridges through observational studies. The lower-overlap and external bridges are there to show how the diagnostics behave, not as choices we'd recommend. Each is compared with the fully connected ML-NMR. In the network plots, navy edges are aggregate data and green are IPD, and the external studies are paired with IXORA-S. The IPD here are simulated to resemble the original trials, as in the multinma example data. External studies: PROSPECT, and Chiricozzi et al. 2019.}
+\note{\textasciitilde 1:00. To test this we need a ground truth, so we take a connected network and break it. It's a plaque psoriasis network: nine RCTs, six active treatments plus placebo, four with IPD and five with aggregate data, outcomes PASI 75, 90 and 100. We remove CLEAR, the placebo arms of the secukinumab trials and the secukinumab arms of FIXTURE, so secukinumab is cut off from placebo. Then we rebuild it six ways. Two random bridges, with the predictive prior on one or all three disconnected studies. Two internal fixed bridges, the highest and a lower overlap pair. And two external fixed bridges through single-arm observational studies of secukinumab, which is the single-arm case from the title. The lower-overlap and external bridges are there to show how the diagnostics behave, not as choices we'd recommend. Each is compared with the fully connected ML-NMR. In the network plots, navy edges are aggregate data and green are IPD, and the external studies are paired with IXORA-S. The IPD here are simulated to resemble the original trials, as in the multinma example data. External studies: PROSPECT, and Chiricozzi et al. 2019.}
 \end{frame}
 }
 
@@ -677,7 +677,7 @@ New study $\mu_\mathrm{new}$ & $-1.64$ \;\textcolor{muted}{($-1.95$, $-1.31$)}\\
 \begin{tikzpicture}
   \foreach \lab/\lc [count=\i] in {Fully connected/ink, Random-3P/randteal, Random-1P/randteal,
       {Fixed \textperiodcentered{} UNC-3/ERA (97\%)}/fixorange, {Fixed \textperiodcentered{} JUNC/IXOR (74\%)}/fixorange,
-      External \textperiodcentered{} PROSPECT/extgrey, External \textperiodcentered{} Chiricozzi/extgrey}
+      Single-arm \textperiodcentered{} PROSPECT/extgrey, Single-arm \textperiodcentered{} Chiricozzi/extgrey}
     \node[anchor=east,font=\scriptsize\bfseries,text=\lc] at (-0.2,-0.42*\i+0.21) {\lab};
   \forestpanel{0}{Secukinumab 150 mg\\{\scriptsize\color{bristolred}crosses the bridge}}{0.67/0.63/0.70/ink, 0.66/0.56/0.76/randteal, 0.65/0.50/0.78/randteal, 0.61/0.54/0.68/fixorange, 0.66/0.54/0.78/fixorange, 0.59/0.46/0.70/extgrey, 0.50/0.37/0.62/extgrey}
   \forestpanel{5.4}{Etanercept\\{\scriptsize\color{muted}within sub-network 1}}{0.44/0.40/0.49/ink, 0.45/0.41/0.50/randteal, 0.45/0.41/0.50/randteal, 0.45/0.41/0.50/fixorange, 0.45/0.41/0.50/fixorange, 0.45/0.40/0.50/extgrey, 0.45/0.41/0.50/extgrey}
@@ -700,7 +700,7 @@ New study $\mu_\mathrm{new}$ & $-1.64$ \;\textcolor{muted}{($-1.95$, $-1.31$)}\\
   {\color{rulegrey}\rule{\linewidth}{0.8pt}}\par\vspace{1.5mm}
   \begin{minipage}[t]{8mm}{\headfont\huge\bfseries\color{bristolred}#1}\end{minipage}%
   \begin{minipage}[t]{\dimexpr\linewidth-8mm}{\large\bfseries #2}\par\vspace{0.5mm}{\footnotesize\color{body}#3}\end{minipage}\par\vspace{1.8mm}}
-\renewcommand{\footleft}{Implemented in the multinma R package}
+\renewcommand{\footleft}{Implemented in multinma: coming to CRAN shortly}
 \begin{frame}{What ML-NMR-B gives you}{Take-homes}
 \vspace*{-3mm}
 \takeaway{1}{Population adjustment across disconnected networks}{Builds on baseline-exchangeability models (B\'eliveau 2017; Thom 2022), adding IPD-level adjustment and a two-stage fit.}
@@ -709,7 +709,7 @@ New study $\mu_\mathrm{new}$ & $-1.64$ \;\textcolor{muted}{($-1.95$, $-1.31$)}\\
 \begin{tintcard}{tealbg}
 {\footnotesize\textcolor{randteal}{\textbf{Next: a simulation study}}\textcolor{body}{\ will test the bias and coverage of each bridging strategy, including when the bridging assumptions fail.}\par}
 \end{tintcard}
-\note{\textasciitilde 0:45. Three things to take away. One: ML-NMR-B brings population adjustment to disconnected networks and single-arm studies. It builds on existing baseline-exchangeability models, like Béliveau and Thom, but adds adjustment at the individual level and a two-stage fit that keeps randomisation within each sub-network intact. Two: the random baseline bridge allows for the unobserved differences between studies that are almost always there, by carrying them through as uncertainty. Three: the assumption every unanchored comparison makes is now something you can judge, through tau-mu, overlap and predictive checks, with sensitivity analyses showing how much the bridge matters. It's all implemented in multinma. Next, we'll run a simulation study to test the bias and coverage of each bridging strategy, including what happens when the bridging assumptions fail.}
+\note{\textasciitilde 0:45. Three things to take away. One: ML-NMR-B brings population adjustment to disconnected networks and single-arm studies. It builds on existing baseline-exchangeability models, like Béliveau and Thom, but adds adjustment at the individual level and a two-stage fit that keeps randomisation within each sub-network intact. Two: the random baseline bridge allows for the unobserved differences between studies that are almost always there, by carrying them through as uncertainty. Three: the assumption every unanchored comparison makes is now something you can judge, through tau-mu, overlap and predictive checks, with sensitivity analyses showing how much the bridge matters. It's implemented in multinma, and will be on CRAN shortly. Next, we'll run a simulation study to test the bias and coverage of each bridging strategy, including what happens when the bridging assumptions fail.}
 \end{frame}
 
 % =====================================================================
@@ -721,9 +721,9 @@ New study $\mu_\mathrm{new}$ & $-1.64$ \;\textcolor{muted}{($-1.95$, $-1.31$)}\\
 {\headfont\fontsize{44}{48}\selectfont\bfseries Questions?\par}
 \vfill
 \begin{columns}[t,onlytextwidth]
-\column{0.25\textwidth}\eyebrow[muted]{Contact}\par\vspace{1mm}{\small [email]}
-\column{0.3\textwidth}\eyebrow[muted]{Software}\par\vspace{1mm}{\small dmphillippo.github.io/multinma}
-\column{0.42\textwidth}\eyebrow[muted]{With}\par\vspace{1mm}{\small Nicky Welton, Hugo Pedder, David Phillippo}
+\column{0.33\textwidth}\eyebrow[muted]{Contact}\par\vspace{1mm}{\small samuel.perren@bristol.ac.uk}
+\column{0.3\textwidth}\eyebrow[muted]{Software}\par\vspace{1mm}{\small multinma \textperiodcentered{} on CRAN shortly\\[0.5mm]dmphillippo.github.io/multinma}
+\column{0.34\textwidth}\eyebrow[muted]{With}\par\vspace{1mm}{\small Nicky Welton, Hugo Pedder, David Phillippo}
 \end{columns}
 \vspace*{3mm}
 \note{\textasciitilde 0:15. Thanks. Happy to take questions.}
