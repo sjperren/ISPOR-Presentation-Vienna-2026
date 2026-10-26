@@ -330,13 +330,13 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \raggedright
 {\small\color{body}Relative effects within sub-network 2 still come from its own trials (if it has randomised comparisons). Covariate effects are shared across the network.\par}\vspace{5mm}
 {\small\color{body}\textcolor{bristolred}{\textbf{Missing:}} $\mu_{j'}$, the outcome on the reference treatment in the disconnected studies.\par}\vspace{2mm}
-{\small\bfseries The bridge supplies it.\par}
+{\small\bfseries We need $\mu_{j'}$ from outside sub-network 2: two ways to get it.\par}
 \end{columns}
 \vfill
 \centering
 {\Large $\eta_{j'k}(\bm{x}) = \colorbox{pinkbg}{$\color{bristolred}\mu_{j'}$} + \bm{x}^T(\bm{\beta}_1 + \bm{\beta}_{2k}) + \gamma_k$}\par
 \vspace{4mm}
-\note{\textasciitilde 0:45. Here's the set-up, using the same disconnected network as before. Sub-network 1, in purple, has the reference treatment. That's usually placebo, but it doesn't have to be: any well-informed, stable treatment will do. Sub-network 2, in green, has no randomised path back to it, or it could be a single-arm study. Look at the linear predictor: relative effects within sub-network 2 still come from its own trials, as long as it has randomised comparisons, and the covariate effects are shared across the whole network. What's missing is mu j-prime, the study baseline: the adjusted outcome on the reference treatment in those disconnected studies, which they can't tell us because the reference isn't observed there. So that's all the bridge has to supply. We call this ML-NMR with bridging, ML-NMR-B, and there are two ways to build the bridge.}
+\note{\textasciitilde 0:45. Here's the set-up, using the same disconnected network as before. Sub-network 1, in purple, has the reference treatment. That's usually placebo, but it doesn't have to be: any well-informed, stable treatment will do. Sub-network 2, in green, has no randomised path back to it, or it could be a single-arm study. Look at the linear predictor: relative effects within sub-network 2 still come from its own trials, as long as it has randomised comparisons, and the covariate effects are shared across the whole network. What's missing is mu j-prime, the study baseline: the adjusted outcome on the reference treatment in those disconnected studies, which they can't tell us because the reference isn't observed there. So that's the one thing we need to bring in from outside sub-network 2. We call this ML-NMR with bridging, ML-NMR-B, and there are two ways to do it.}
 \end{frame}
 
 % =====================================================================
@@ -504,7 +504,7 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 
 {\small\bfseries Small and precise}
 
-{\scriptsize\color{body}Little unexplained variation among the reference studies. Psoriasis: $\tau_\mu = 0.115$.}
+{\scriptsize\color{body}Little unexplained variation among the reference studies.}
 \end{card}
 \begin{card}
 \begin{tikzpicture}[x=1mm,y=1mm]
@@ -520,13 +520,60 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \end{tcbraster}
 {\scriptsize\color{body}Dashed grey: prior for $\tau_\mu$ \textperiodcentered{} solid teal: posterior from Stage 1\par}
 \vfill
-\begin{columns}[t,onlytextwidth]
-\column{0.31\textwidth}\point{$\tau_\mu$ covers the reference studies, not the bridge itself}
-\column{0.31\textwidth}\point{Cross-validation checks the outcome model only}
-\column{0.31\textwidth}\point{Sensitivity analyses: how far conclusions depend on the bridge}
-\end{columns}
+\begin{tintcard}{sand}
+{\footnotesize\textcolor{bristolred}{\textbf{Note:}} $\tau_\mu$ only covers the reference studies. Whether the disconnected studies belong to the same distribution can't be checked directly.\par}
+\end{tintcard}
 \vspace{2mm}
-\note{\textasciitilde 1:00. The assumption can't be tested directly, but tau-mu from Stage 1 lets us judge it. It's the variation in the adjusted baselines of the reference studies, so it measures unobserved differences between them, and it has to be read relative to the size of the treatment effects. It can't see across the bridge itself: whether the disconnected studies belong to the same distribution stays an assumption. Compare its posterior with its prior. On the left, the posterior just hugs the prior: there isn't enough data, which doesn't mean differences are absent, so think about an informative prior or a fixed bridge. In the middle, small and precise: little unexplained variation, which is what we saw in psoriasis, 0.115. On the right, precise but large: the baselines really do differ, and that's a warning. Two supporting checks: cross-validation in the IPD studies checks the outcome model is adequate, but it isn't a test of the bridge. And sensitivity analyses across plausible bridges show how much the conclusions depend on the choice.}
+\note{\textasciitilde 1:00. The assumption can't be tested directly, but tau-mu from Stage 1 lets us judge it. It's the variation in the adjusted baselines of the reference studies, so it measures unobserved differences between them, and it has to be read relative to the size of the treatment effects. It can't see across the bridge itself: whether the disconnected studies belong to the same distribution stays an assumption. Compare its posterior with its prior. On the left, the posterior just hugs the prior: there isn't enough data, which doesn't mean differences are absent, so think about an informative prior or a fixed bridge. In the middle, small and precise: little unexplained variation. We'll see this case in psoriasis. On the right, precise but large: the baselines really do differ, and that's a warning. Two more checks sit alongside this, on the next slide.}
+\end{frame}
+
+% =====================================================================
+\begin{frame}{Checking the model and the bridging choices}{Judging the assumption}
+\begin{tcbraster}[raster columns=2,raster equal height,raster column skip=3mm]
+\begin{card}
+\eyebrow{Predictive performance}
+
+{\small\bfseries Do the covariates predict outcomes?\par}
+{\scriptsize\color{body}Leave-one-out cross-validation in the IPD studies, adjusted model against an unadjusted one.\par}
+\vspace{1.5mm}
+\centering
+{\scriptsize
+\begin{tabular}{@{}l c c@{}}
+\hline
+LOO RMSE & Adjusted & Unadjusted\\
+\hline
+PASI 75 & 0.356 & 0.359\\
+PASI 90 & 0.407 & 0.412\\
+PASI 100 & 0.386 & 0.390\\
+\hline
+\end{tabular}\par}
+\vspace{0.5mm}
+{\tiny\color{muted}Psoriasis case study\par}
+\vspace{1.5mm}
+\raggedright
+{\scriptsize\color{body}Checks the outcome model is adequate. It's within-study and individual-level, so it \textbf{doesn't test the bridge}.\par}
+\end{card}
+\begin{card}
+\eyebrow{Sensitivity analysis across bridges}
+
+{\small\bfseries Does the answer depend on the bridge?\par}
+{\scriptsize\color{body}Fit a set of plausible bridging models, not just one:\par}
+\vspace{1mm}
+\begin{tikzpicture}[x=1mm,y=1mm,num/.style={circle,fill=bristolred,text=white,font=\tiny\bfseries,minimum size=4mm,inner sep=0pt}]
+  \node[num] at (2,16) {1}; \node[anchor=west,font=\scriptsize,text width=52mm] at (5,16) {Random bridge: prior on one study vs several};
+  \node[num] at (2,9) {2}; \node[anchor=west,font=\scriptsize,text width=52mm] at (5,9) {Fixed bridges through different anchor pairs};
+  \node[num] at (2,2) {3}; \node[anchor=west,font=\scriptsize,text width=52mm] at (5,2) {Random vs fixed on the same studies};
+\end{tikzpicture}
+\vspace{1.5mm}
+
+{\scriptsize\color{body}Every model still rests on the same assumption, so this \textbf{doesn't test it}. It shows how far conclusions depend on the bridging choice: report changes rather than pick one model.\par}
+\end{card}
+\end{tcbraster}
+\vfill
+\raggedright
+\statement{Neither tests the assumption: with $\tau_\mu$ and overlap, they help judge it.}
+\vspace{2mm}
+\note{\textasciitilde 0:50. Two more checks sit alongside tau-mu. First, predictive performance. We use leave-one-out cross-validation in the IPD studies to check the covariates actually predict outcomes, comparing the adjusted model against an unadjusted one. In psoriasis the two are very close, which isn't a bad sign: individual binary outcomes are noisy, and treatment and study baselines already explain most of what's predictable. The important point is that this is within-study and individual-level, so it checks the outcome model, not the bridge. Second, sensitivity analysis. Rather than fit one bridge, fit a set of plausible ones: the random bridge with the prior on one study or several, fixed bridges through different anchor pairs, and random against fixed on the same studies. They all rely on the same assumption, so this doesn't test it, but it shows how much the conclusions depend on the bridging choice, and any change should be reported rather than hidden by picking one model.}
 \end{frame}
 
 % =====================================================================
@@ -673,9 +720,9 @@ New study $\mu_\mathrm{new}$ & $-1.64$ \;\textcolor{muted}{($-1.95$, $-1.31$)}\\
 \takeaway{2}{Allows for unobserved differences}{The random baseline bridge carries residual between-study variation through as uncertainty.}
 \takeaway{3}{Makes the key assumption judgeable}{$\tau_\mu$, overlap ESS and predictive checks, plus sensitivity analyses across bridges.}
 \begin{tintcard}{tealbg}
-{\footnotesize\textcolor{randteal}{\textbf{Next: a simulation study}}\textcolor{body}{\ will test bias and coverage of each bridging strategy, and how much baseline heterogeneity a bridge can tolerate.}\par}
+{\footnotesize\textcolor{randteal}{\textbf{Next: a simulation study}}\textcolor{body}{\ will test the bias and coverage of each bridging strategy, including when the bridging assumptions fail.}\par}
 \end{tintcard}
-\note{\textasciitilde 0:45. Three things to take away. One: ML-NMR-B brings population adjustment to disconnected networks and single-arm studies. It builds on existing baseline-exchangeability models, like Béliveau and Thom, but adds adjustment at the individual level and a two-stage fit that keeps randomisation within each sub-network intact. Two: the random baseline bridge allows for the unobserved differences between studies that are almost always there, by carrying them through as uncertainty. Three: the assumption every unanchored comparison makes is now something you can judge, through tau-mu, overlap and predictive checks, with sensitivity analyses showing how much the bridge matters. It's all implemented in multinma. Next, we'll run a simulation study to test the bias and coverage of each bridging strategy, and how much baseline heterogeneity a bridge can tolerate before it breaks down.}
+\note{\textasciitilde 0:45. Three things to take away. One: ML-NMR-B brings population adjustment to disconnected networks and single-arm studies. It builds on existing baseline-exchangeability models, like Béliveau and Thom, but adds adjustment at the individual level and a two-stage fit that keeps randomisation within each sub-network intact. Two: the random baseline bridge allows for the unobserved differences between studies that are almost always there, by carrying them through as uncertainty. Three: the assumption every unanchored comparison makes is now something you can judge, through tau-mu, overlap and predictive checks, with sensitivity analyses showing how much the bridge matters. It's all implemented in multinma. Next, we'll run a simulation study to test the bias and coverage of each bridging strategy, including what happens when the bridging assumptions fail.}
 \end{frame}
 
 % =====================================================================
