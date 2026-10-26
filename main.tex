@@ -124,6 +124,56 @@
 }
 
 % =====================================================================
+% =====================================================================
+\begin{frame}{Network meta-analysis in one slide}{Background}
+\begin{tcbraster}[raster columns=2,raster equal height,raster column skip=3mm]
+\begin{card}
+\eyebrow{Indirect comparison via B}
+
+\centering
+\begin{tikzpicture}[x=1mm,y=0.72mm]
+  \node[pnode,minimum size=7mm,font=\small\bfseries] (b) at (28,30) {B};
+  \node[pnode,minimum size=7mm,font=\small\bfseries] (a) at (6,6) {A};
+  \node[pnode,minimum size=7mm,font=\small\bfseries] (c) at (50,6) {C};
+  \draw[pedge,line width=1.6pt] (a) -- node[midway,left=1mm,font=\scriptsize,text=body] {AB trials} (b);
+  \draw[pedge,line width=1.6pt] (b) -- node[midway,right=1mm,font=\scriptsize,text=body] {BC trials} (c);
+  \draw[bristolred,dashed,line width=1.4pt] (a) -- node[midway,below=0.8mm,font=\scriptsize\bfseries,text=bristolred] {indirect} (c);
+\end{tikzpicture}
+
+{\large $d_{AC} = d_{AB} + d_{BC}$\par}
+\end{card}
+\begin{card}
+\eyebrow{Constancy of relative effects}
+
+\centering
+\begin{tikzpicture}[x=1mm,y=0.7mm]
+  \draw[axis] (0,0) -- (62,0);
+  \node[font=\tiny,text=muted,anchor=north] at (31,-1) {outcome scale, e.g.\ log-odds};
+  % trial 1
+  \node[font=\scriptsize\bfseries,anchor=east] at (13,25) {Trial 1};
+  \draw[ink,-{Stealth[length=2mm]},line width=1.3pt] (16,25) -- (37,25);
+  \fill[muted] (16,25) circle (1.5); \fill[netpurpleline] (38,25) circle (1.5);
+  \node[font=\scriptsize,anchor=north] at (26.5,24) {$d$};\node[font=\tiny,text=muted,anchor=south] at (16,27) {comparator};\node[font=\tiny,text=netpurpleline,anchor=south] at (38,27) {treatment};
+  % trial 2
+  \node[font=\scriptsize\bfseries,anchor=east] at (13,11) {Trial 2};
+  \draw[ink,-{Stealth[length=2mm]},line width=1.3pt] (30,11) -- (51,11);
+  \fill[muted] (30,11) circle (1.5); \fill[netpurpleline] (52,11) circle (1.5);
+  \node[font=\scriptsize,anchor=north] at (40.5,10) {$d$};
+  \draw[bristolred,densely dotted,line width=0.9pt] (16,21.5) -- (16,6) (30,21.5) -- (30,6);
+  \node[font=\tiny\bfseries,text=bristolred,align=center] at (23,4.3) {baselines\\differ};
+\end{tikzpicture}
+
+\raggedright
+{\scriptsize\color{body}Baselines can differ: randomisation cancels prognostic imbalance. The relative effect $d$ must match, so effect modifiers must be balanced.}
+\end{card}
+\end{tcbraster}
+\vfill
+\raggedright
+\statement{NMA relies on \textit{relative} effects, never on absolute outcomes matching.}
+\vspace{2mm}
+\note{\textasciitilde 0:40. A quick reminder of NMA. If we have trials of A versus B and B versus C, we can compare A with C indirectly through the common comparator B: d AC equals d AB plus d BC. Do that across a whole network and you compare many treatments at once, as long as every treatment is joined by a path of randomised trials. The key assumption is constancy of relative effects. On the right: two trials can start from quite different baseline risks, because their populations differ in prognostic factors, and that's fine, randomisation within each trial cancels it out. What has to be the same is the relative effect, d, which means effect modifiers must be balanced across trials. So NMA only ever relies on relative effects lining up, never absolute outcomes. Hold on to that, because it's exactly what breaks when the network is disconnected.}
+\end{frame}
+
 {\renewcommand{\footleft}{S. J. Perren \textperiodcentered{} University of Bristol \quad\textperiodcentered\quad Source: Phillippo et al., PharmacoEconomics 2019 (NICE TAs 2010--2018)}
 \begin{frame}{Disconnected networks and single-arm studies}{The problem}
 \begin{columns}[T,onlytextwidth]
@@ -167,7 +217,7 @@
 \end{columns}
 \end{tcolorbox}
 \vspace{1mm}
-\note{\textasciitilde 1:15. NMA pools randomised trials to compare many treatments, but only when there's a path of trials joining them, like the triangle on the left. Randomisation within each trial means differences in prognostic factors between trials cancel out. Health technology assessment committees increasingly see the other two pictures: a treatment that only comes from a single-arm study, or whole sub-networks with no common comparator between them. Comparisons across that gap are unanchored. Of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment methods, and 16 of those were unanchored comparisons using MAIC. And in over half of them, the decision involved more than two treatments, but MAIC and STC can only compare one pair of studies at a time. They also only give estimates in the aggregate study's population, and give you no way to assess whether the assumption they rest on is plausible.}
+\note{\textasciitilde 1:15. So NMA needs a path of randomised trials joining the treatments, like the triangle on the left. Health technology assessment committees increasingly see the other two pictures: a treatment that only comes from a single-arm study, or whole sub-networks with no common comparator between them. Comparisons across that gap are unanchored. Of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment methods, and 16 of those were unanchored comparisons using MAIC. And in over half of them, the decision involved more than two treatments, but MAIC and STC can only compare one pair of studies at a time. They also only give estimates in the aggregate study's population, and give you no way to assess whether the assumption they rest on is plausible.}
 \end{frame}
 }
 
