@@ -174,7 +174,53 @@
 \end{card}
 \end{tcbraster}
 \vfill
-\note{\textasciitilde 0:40. A quick reminder of NMA. If we have trials of A versus B and trials of B versus C, we can compare A with C indirectly through the common comparator B: d AC equals d AB plus d BC. Do that across a whole network and you can compare many treatments at once, as long as every treatment is joined by a path of randomised trials. On the right is the same idea on the outcome scale: the A to B step from the AB trials and the B to C step from the BC trials chain together through B to give A versus C. The key assumption is constancy of relative effects: the effect of A versus B is the same in every trial, whichever trial it was measured in. That's what lets us add the two effects together, and it holds as long as effect modifiers are balanced across the trials. Hold on to that, because it's exactly what we lose when the network is disconnected.}
+\note{\textasciitilde 0:40. A quick reminder of NMA. If we have trials of A versus B and trials of B versus C, we can compare A with C indirectly through the common comparator B: d AC equals d AB plus d BC. Do that across a whole network and you can compare many treatments at once, as long as every treatment is joined by a path of randomised trials. On the right is the same idea on the outcome scale: the A to B step from the AB trials and the B to C step from the BC trials chain together through B to give A versus C. The key assumption is constancy of relative effects: the effect of A versus B is the same in every trial, whichever trial it was measured in. That's what lets us add the two effects together, and it holds as long as effect modifiers are balanced across the trials. But what if effect modifiers aren't balanced? That's where population adjustment comes in.}
+\end{frame}
+
+% =====================================================================
+\begin{frame}{ML-NMR: one model for IPD and aggregate data}{When effect modifiers aren't balanced}
+\begin{columns}[T,onlytextwidth]
+\column{0.485\textwidth}
+\begin{card}
+\eyebrow{Studies with IPD: fit to individuals}
+
+\centering
+\begin{tikzpicture}[x=1mm,y=1mm]
+  \draw[axis] (0,0) -- (58,0);
+  \draw[bristolred,line width=1.4pt,domain=0:58,samples=60] plot (\x,{2+16*logist(\x,30,5)});
+  \foreach \x in {3,7,11,15,18,21,25,32} \fill[ink,opacity=0.55] (\x,2) circle (0.9);
+  \foreach \x in {26,33,36,40,44,48,52,56} \fill[ink,opacity=0.55] (\x,18) circle (0.9);
+\end{tikzpicture}
+
+\raggedright
+{\scriptsize\color{body}Each dot is one person: responded (top) or not (bottom), by covariate value}
+
+\centering
+$\eta_{jk}(\bm{x}) = \mu_j + \bm{x}^T(\bm{\beta}_1 + \bm{\beta}_{2k}) + \gamma_k$
+\end{card}
+\column{0.485\textwidth}
+\begin{card}
+\eyebrow{Aggregate data: integrate over $f(\bm{x})$}
+
+\centering
+\begin{tikzpicture}[x=1mm,y=1mm]
+  \draw[axis] (0,0) -- (58,0);
+  \fill[bristolred,opacity=0.15,domain=8:52,samples=50] plot (\x,{14*gauss(\x,30,7)}) -- (52,0) -- (8,0) -- cycle;
+  \draw[bristolred,opacity=0.6,line width=1pt,domain=8:52,samples=50] plot (\x,{14*gauss(\x,30,7)});
+  \draw[ink,line width=1.4pt,domain=0:58,samples=60] plot (\x,{2+16*logist(\x,30,5)});
+\end{tikzpicture}
+
+\raggedright
+{\scriptsize\color{body}Shaded: the study's covariate distribution, from its reported summaries}
+
+\centering
+$\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\bm{x})\, d\bm{x}$
+\end{card}
+\end{columns}
+\vfill
+\statement{Any network size, any target population. \textcolor{bristolred}{But only for connected networks.}}
+\vspace{2mm}
+\note{\textasciitilde 1:00. If effect modifiers differ between trials, we need to adjust for them, and that's what ML-NMR does. For studies with IPD we fit an individual-level regression: a study baseline mu, prognostic effects beta-1, effect modifiers beta-2, and treatment effects gamma. For studies with only aggregate data, we take that same individual model and integrate it over the study's covariate distribution, so there's no aggregation bias. That gives population adjustment in networks of any size, with estimates in whatever target population the decision needs. The catch: until now it needed a connected network.}
 \end{frame}
 
 {\renewcommand{\footleft}{S. J. Perren \textperiodcentered{} University of Bristol \quad\textperiodcentered\quad Source: Phillippo et al., PharmacoEconomics 2019 (NICE TAs 2010--2018)}
@@ -220,55 +266,9 @@
 \end{columns}
 \end{tcolorbox}
 \vspace{1mm}
-\note{\textasciitilde 1:15. So NMA needs a path of randomised trials joining the treatments, like the triangle on the left. Health technology assessment committees increasingly see the other two pictures: a treatment that only comes from a single-arm study, or whole sub-networks with no common comparator between them. Comparisons across that gap are unanchored. Of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment methods, and 16 of those were unanchored comparisons using MAIC. And in over half of them, the decision involved more than two treatments, but MAIC and STC can only compare one pair of studies at a time. They also only give estimates in the aggregate study's population, and give you no way to assess whether the assumption they rest on is plausible.}
+\note{\textasciitilde 1:15. So ML-NMR, like NMA, needs a path of randomised trials joining the treatments, like the triangle on the left. Health technology assessment committees increasingly see the other two pictures: a treatment that only comes from a single-arm study, or whole sub-networks with no common comparator between them. Comparisons across that gap are unanchored. Of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment methods, and 16 of those were unanchored comparisons using MAIC. And in over half of them, the decision involved more than two treatments, but MAIC and STC can only compare one pair of studies at a time. They also only give estimates in the aggregate study's population, and give you no way to assess whether the assumption they rest on is plausible.}
 \end{frame}
 }
-
-% =====================================================================
-\begin{frame}{ML-NMR: one model for IPD and aggregate data}{Background}
-\begin{columns}[T,onlytextwidth]
-\column{0.485\textwidth}
-\begin{card}
-\eyebrow{Studies with IPD: fit to individuals}
-
-\centering
-\begin{tikzpicture}[x=1mm,y=1mm]
-  \draw[axis] (0,0) -- (58,0);
-  \draw[bristolred,line width=1.4pt,domain=0:58,samples=60] plot (\x,{2+16*logist(\x,30,5)});
-  \foreach \x in {3,7,11,15,18,21,25,32} \fill[ink,opacity=0.55] (\x,2) circle (0.9);
-  \foreach \x in {26,33,36,40,44,48,52,56} \fill[ink,opacity=0.55] (\x,18) circle (0.9);
-\end{tikzpicture}
-
-\raggedright
-{\scriptsize\color{body}Each dot is one person: responded (top) or not (bottom), by covariate value}
-
-\centering
-$\eta_{jk}(\bm{x}) = \mu_j + \bm{x}^T(\bm{\beta}_1 + \bm{\beta}_{2k}) + \gamma_k$
-\end{card}
-\column{0.485\textwidth}
-\begin{card}
-\eyebrow{Aggregate data: integrate over $f(\bm{x})$}
-
-\centering
-\begin{tikzpicture}[x=1mm,y=1mm]
-  \draw[axis] (0,0) -- (58,0);
-  \fill[bristolred,opacity=0.15,domain=8:52,samples=50] plot (\x,{14*gauss(\x,30,7)}) -- (52,0) -- (8,0) -- cycle;
-  \draw[bristolred,opacity=0.6,line width=1pt,domain=8:52,samples=50] plot (\x,{14*gauss(\x,30,7)});
-  \draw[ink,line width=1.4pt,domain=0:58,samples=60] plot (\x,{2+16*logist(\x,30,5)});
-\end{tikzpicture}
-
-\raggedright
-{\scriptsize\color{body}Shaded: the study's covariate distribution, from its reported summaries}
-
-\centering
-$\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\bm{x})\, d\bm{x}$
-\end{card}
-\end{columns}
-\vfill
-\statement{Any network size, any target population. \textcolor{bristolred}{But only for connected networks.}}
-\vspace{2mm}
-\note{\textasciitilde 1:00. Quick recap of ML-NMR. For studies with IPD we fit an individual-level regression: a study baseline mu, prognostic effects beta-1, effect modifiers beta-2, and treatment effects gamma. For studies with only aggregate data, we take that same individual model and integrate it over the study's covariate distribution, so there's no aggregation bias. That gives population adjustment in networks of any size, with estimates in whatever target population the decision needs. The catch: until now it needed a connected network.}
-\end{frame}
 
 % =====================================================================
 \begin{frame}
