@@ -346,11 +346,12 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
   \fill[tealbg,rounded corners=1.5mm] (0,0) rectangle (64,51);
   \fill[tealbg,rounded corners=1.5mm] (76,0) rectangle (140,51);
   \draw[randteal,flowarrow] (65.5,27) -- (74.5,27);
+  \node[font=\tiny\bfseries,text=randteal,align=center,anchor=south] at (70,28) {$\mu_\mathrm{new}$\\only};
   % ---------------- Stage 1 ----------------
   \node[anchor=north west,align=left,text width=59mm] at (2.5,49.5) {\eyebrow[randteal]{Stage 1 \textperiodcentered{} baseline synthesis}\\[0.6mm]{\footnotesize\bfseries Synthesise sub-network 1's baselines}};
   % disconnected pair: in the fit with its own baselines, not in the synthesis
   \node[sg] (c1) at (9,36.5) {}; \node[sg] (d1) at (9,20.5) {}; \draw[gedge] (c1) -- (d1);
-  \node[font=\tiny,text=muted,align=center] at (20,28.5) {own\\baselines,\\not\\synthesised};
+  \node[font=\tiny,text=muted,align=center] at (20,28.5) {informs\\covariate\\effects\\only};
   % reference sub-network
   \node[sp,minimum size=6mm,font=\tiny\bfseries] (h1) at (34,28.5) {PBO};
   \foreach \xx/\yy in {41/37, 47/32.5, 47/24.5, 41/20} { \node[sp] (t) at (\xx,\yy) {}; \draw[pedge] (h1) -- (t); }
@@ -379,7 +380,7 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \raggedright
 \statement{Assumes the adjusted baselines of all bridged studies are exchangeable.}
 \vspace{2mm}
-\note{\textasciitilde 1:15. The random baseline bridge has two stages. Stage 1, on the left, fits ML-NMR to the whole network, but only sub-network 1's baselines, the part with placebo in it, get the random-effects distribution. The disconnected studies keep their own separate baselines, so their data still help estimate the covariate effects without feeding into the synthesis. That gives a mean and a between-study SD, tau-mu, which is the variation left after adjusting for covariates. From that we get a predictive distribution for the baseline in a new study. Stage 2, on the right, brings the whole network back in, and that predictive distribution sits on the bridge as an informative prior on the baselines of the disconnected studies only. Doing it in two stages means we never share non-randomised information across the connected parts of the network, so randomisation within each sub-network is preserved. It assumes the adjusted baselines of all bridged studies are exchangeable, and because some unobserved differences between studies are almost always there, we prefer this bridge where the data allow.}
+\note{\textasciitilde 1:15. The random baseline bridge has two stages. Stage 1, on the left, fits ML-NMR to the whole network, but only sub-network 1's baselines, the part with placebo in it, get the random-effects distribution. The disconnected studies keep their own separate baselines, so they only inform the covariate effects. The only thing carried forward from Stage 1 is the predictive distribution, mu new. That gives a mean and a between-study SD, tau-mu, which is the variation left after adjusting for covariates. From that we get a predictive distribution for the baseline in a new study. Stage 2, on the right, brings the whole network back in, and that predictive distribution sits on the bridge as an informative prior on the baselines of the disconnected studies only. Doing it in two stages means we never share non-randomised information across the connected parts of the network, so randomisation within each sub-network is preserved. It assumes the adjusted baselines of all bridged studies are exchangeable, and because some unobserved differences between studies are almost always there, we prefer this bridge where the data allow.}
 \end{frame}
 
 % =====================================================================
