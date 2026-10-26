@@ -143,18 +143,38 @@
 {\large $d_{AC} = d_{AB} + d_{BC}$\par}
 \end{card}
 \begin{card}
-\eyebrow{Key assumption}
+\eyebrow{Constancy of relative effects}
 
-\vspace{1mm}
-{\headfont\Large\bfseries\color{bristolred}Constancy of relative effects\par}
-\vspace{2.5mm}
-{\headfont\large The effect of A vs B is the same in every trial, whichever trial it was measured in.\par}
-\vspace{3mm}
-{\small\color{body}This is what lets us add $d_{AB}$ and $d_{BC}$ to get $d_{AC}$. It holds if \textbf{effect modifiers} are balanced across trials.\par}
+\centering
+\begin{tikzpicture}[x=1mm,y=0.6mm,
+    dn/.style={pnode,minimum size=4mm,font=\tiny\bfseries,inner sep=0pt}]
+  \draw[muted!60,densely dotted,line width=0.7pt] (36,27) -- (36,20);
+  \draw[axis] (17,-1) -- (60,-1);
+  \node[font=\tiny,text=muted,anchor=north] at (38.5,-2) {outcome scale, e.g.\ log-odds};
+  % AB trial
+  \node[font=\scriptsize\bfseries,anchor=east] at (15,30) {AB trial};
+  \draw[ink,-{Stealth[length=2mm]},line width=1.2pt] (23,30) -- (34.5,30);
+  \node[dn] at (22,30) {A}; \node[dn] at (36,30) {B};
+  \node[font=\scriptsize,anchor=south] at (29,31) {$d_{AB}$};
+  % BC trial
+  \node[font=\scriptsize\bfseries,anchor=east] at (15,17) {BC trial};
+  \draw[ink,-{Stealth[length=2mm]},line width=1.2pt] (37,17) -- (48.5,17);
+  \node[dn] at (36,17) {B}; \node[dn] at (50,17) {C};
+  \node[font=\scriptsize,anchor=south] at (43,18) {$d_{BC}$};
+  % AC indirect
+  \node[font=\scriptsize\bfseries,anchor=east,text=bristolred] at (15,4) {AC indirect};
+  \draw[bristolred,dashed,-{Stealth[length=2mm]},line width=1.2pt] (23,4) -- (48.5,4);
+  \node[dn] at (22,4) {A}; \node[dn] at (50,4) {C};
+  \node[font=\scriptsize,text=bristolred,anchor=south] at (36,5) {$d_{AB} + d_{BC}$};
+\end{tikzpicture}
+
+\raggedright
+{\small\color{ink}The effect of A vs B is the same in every trial, whichever trial it was measured in.\par}\vspace{1mm}
+{\scriptsize\color{body}That's what lets us add $d_{AB}$ and $d_{BC}$. It holds if \textbf{effect modifiers} are balanced across trials.\par}
 \end{card}
 \end{tcbraster}
 \vfill
-\note{\textasciitilde 0:40. A quick reminder of NMA. If we have trials of A versus B and trials of B versus C, we can compare A with C indirectly through the common comparator B: d AC equals d AB plus d BC. Do that across a whole network and you can compare many treatments at once, as long as every treatment is joined by a path of randomised trials. The key assumption is constancy of relative effects: the effect of A versus B is the same in every trial, whichever trial it was measured in. That's what lets us add the two effects together, and it holds as long as effect modifiers are balanced across the trials. Hold on to that, because it's exactly what we lose when the network is disconnected.}
+\note{\textasciitilde 0:40. A quick reminder of NMA. If we have trials of A versus B and trials of B versus C, we can compare A with C indirectly through the common comparator B: d AC equals d AB plus d BC. Do that across a whole network and you can compare many treatments at once, as long as every treatment is joined by a path of randomised trials. On the right is the same idea on the outcome scale: the A to B step from the AB trials and the B to C step from the BC trials chain together through B to give A versus C. The key assumption is constancy of relative effects: the effect of A versus B is the same in every trial, whichever trial it was measured in. That's what lets us add the two effects together, and it holds as long as effect modifiers are balanced across the trials. Hold on to that, because it's exactly what we lose when the network is disconnected.}
 \end{frame}
 
 {\renewcommand{\footleft}{S. J. Perren \textperiodcentered{} University of Bristol \quad\textperiodcentered\quad Source: Phillippo et al., PharmacoEconomics 2019 (NICE TAs 2010--2018)}
