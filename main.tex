@@ -619,7 +619,7 @@ New study $\mu_\mathrm{new}$ & $-1.64$ \;\textcolor{muted}{($-1.95$, $-1.31$)}\\
 % Forest plot: probability of PASI 75, FIXTURE population, ML-NMR (Appendix Table A3)
 \newcommand{\forestpanel}[3]{% #1 x-offset (cm), #2 title, #3 list of mean/lo/hi/colour
   \begin{scope}[xshift=#1cm]
-    \node[anchor=south west,font=\small\bfseries] at (0,0.15) {#2};
+    \node[anchor=south west,font=\small\bfseries,align=left,text width=4.6cm] at (0,0.15) {#2};
     \foreach \fm/\flo/\fhi/\fc [count=\i] in {#3} {
       \ifnum\i=1
         \fill[ink,opacity=0.08] ({(\flo-0.3)/0.7*4.6},-0.05) rectangle ({(\fhi-0.3)/0.7*4.6},-2.98);
@@ -634,27 +634,28 @@ New study $\mu_\mathrm{new}$ & $-1.64$ \;\textcolor{muted}{($-1.95$, $-1.31$)}\\
       \node[font=\scriptsize,text=muted,below] at ({(\t-0.3)/0.7*4.6},-3.05) {\t};
     }
   \end{scope}}
-\begin{frame}{Bridged secukinumab in the FIXTURE population}{Results \textperiodcentered{} probability of PASI 75}
+{\renewcommand{\footleft}{ML-NMR posterior mean and 95\% CrI \textperiodcentered{} dashed line and band: fully connected estimate}
+\begin{frame}{Only bridged comparisons depend on the bridge}{Results \textperiodcentered{} probability of PASI 75, FIXTURE population}
 \centering
 \begin{tikzpicture}
   \foreach \lab/\lc [count=\i] in {Fully connected/ink, Random-3P/randteal, Random-1P/randteal,
       {Fixed \textperiodcentered{} UNC-3/ERA (97\%)}/fixorange, {Fixed \textperiodcentered{} JUNC/IXOR (74\%)}/fixorange,
       External \textperiodcentered{} PROSPECT/extgrey, External \textperiodcentered{} Chiricozzi/extgrey}
     \node[anchor=east,font=\scriptsize\bfseries,text=\lc] at (-0.2,-0.42*\i+0.21) {\lab};
-  \forestpanel{0}{Secukinumab 150 mg}{0.67/0.63/0.70/ink, 0.66/0.56/0.76/randteal, 0.65/0.50/0.78/randteal, 0.61/0.54/0.68/fixorange, 0.66/0.54/0.78/fixorange, 0.59/0.46/0.70/extgrey, 0.50/0.37/0.62/extgrey}
-  \forestpanel{5.4}{Secukinumab 300 mg}{0.80/0.77/0.82/ink, 0.81/0.73/0.88/randteal, 0.80/0.68/0.89/randteal, 0.77/0.71/0.83/fixorange, 0.81/0.72/0.89/fixorange, 0.75/0.66/0.83/extgrey, 0.68/0.57/0.77/extgrey}
+  \forestpanel{0}{Secukinumab 150 mg\\{\scriptsize\color{bristolred}crosses the bridge}}{0.67/0.63/0.70/ink, 0.66/0.56/0.76/randteal, 0.65/0.50/0.78/randteal, 0.61/0.54/0.68/fixorange, 0.66/0.54/0.78/fixorange, 0.59/0.46/0.70/extgrey, 0.50/0.37/0.62/extgrey}
+  \forestpanel{5.4}{Etanercept\\{\scriptsize\color{muted}within sub-network 1}}{0.44/0.40/0.49/ink, 0.45/0.41/0.50/randteal, 0.45/0.41/0.50/randteal, 0.45/0.41/0.50/fixorange, 0.45/0.41/0.50/fixorange, 0.45/0.40/0.50/extgrey, 0.45/0.41/0.50/extgrey}
 \end{tikzpicture}
 \vfill
 \begin{columns}[t,onlytextwidth]
-\column{0.31\textwidth}\point[randteal]{Random-3P sits closest to the connected network}
+\column{0.31\textwidth}\point[ink]{Etanercept: every bridge gives the same answer as the full network}
 \column{0.31\textwidth}\point[fixorange]{The 74\% pair beat the 97\% pair: overlap isn't bias}
 \column{0.31\textwidth}\point[extgrey]{Chiricozzi drifts low: unobserved differences across the bridge}
 \end{columns}
 \vspace{1mm}
-{\tiny\color{muted}ML-NMR posterior mean and 95\% CrI \textperiodcentered{} dashed line and band: fully connected estimate\par}
-\vspace{1mm}
-\note{\textasciitilde 1:30. Here are the two comparisons that actually depend on the bridge: secukinumab 150 and 300 versus everything else, predicted in the FIXTURE population, as the probability of PASI 75. The dashed line and grey band are the fully connected answer we're trying to recover. Three things. First, the random bridge with the prior on all three disconnected studies lands closest to the connected network, and putting the prior on one study widens the intervals as you'd expect. Second, the fixed bridges: the 97\% overlap pair is more precise but shifted, while the 74\% pair recovers the connected estimate. Because both adjust for the observed covariates, overlap on those covariates doesn't drive bias. What matters is unobserved differences, and UNCOVER-3 and ERASURE seem to differ on something we haven't measured. Third, the external Chiricozzi bridge drifts furthest, most likely because that observational population differs on unobserved factors. ML-NMR and unadjusted NMA agree here, because effect modifiers are similarly distributed, so I've only shown ML-NMR. The same pattern holds for PASI 90 and 100.}
+
+\note{\textasciitilde 1:30. Two comparisons, predicted in the FIXTURE population as the probability of PASI 75. The dashed line and grey band are the fully connected answer we're trying to recover. On the right is a control: etanercept, which sits inside sub-network 1, so its comparisons never cross the bridge. Every bridging method gives the same answer as the full network, 0.45 against 0.44. On the left is secukinumab 150, which does cross the bridge, and now the choice matters. The random bridge with the prior on all three disconnected studies sits closest to the connected answer, and putting the prior on one study widens the intervals as you'd expect. The fixed bridges: the 97\% overlap pair is more precise but shifted, while the 74\% pair recovers the connected estimate. Both adjust for the observed covariates, so overlap on those covariates doesn't drive bias; unobserved differences do, and UNCOVER-3 and ERASURE seem to differ on something we haven't measured. The external Chiricozzi bridge drifts furthest, most likely for the same reason. So the bridging assumptions only bite on the comparisons that rely on the bridge. The same pattern holds for secukinumab 300 and for PASI 90 and 100.}
 \end{frame}
+}
 
 % =====================================================================
 \newcommand{\takeaway}[3]{%
