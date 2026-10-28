@@ -475,14 +475,16 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \end{itemize}
 \end{columns}
 \vfill
-\begin{tcbraster}[raster columns=4,raster equal height,raster column skip=2.5mm]
-\bridgetag{tealbg}{randteal}{\textbf{Random} \textperiodcentered{} all three}
+\begin{tcbraster}[raster columns=3,raster equal height,raster column skip=2.5mm,raster row skip=1.5mm]
+\bridgetag{tealbg}{randteal}{\textbf{Random-1P} \textperiodcentered{} prior on ERASURE}
 \bridgetag{orangebg}{fixorange}{\textbf{Fixed} \textperiodcentered{} UNC-3 + ERA (97\%)}
-\bridgetag{orangebg}{fixorange}{\textbf{Fixed} \textperiodcentered{} JUNC + IXOR (74\%)}
 \bridgetag{sand}{extgrey}{\textbf{Single-arm} \textperiodcentered{} PROSPECT (89\%)}
+\bridgetag{tealbg}{randteal}{\textbf{Random-3P} \textperiodcentered{} prior on all three}
+\bridgetag{orangebg}{fixorange}{\textbf{Fixed} \textperiodcentered{} JUNC + IXOR (74\%)}
+\bridgetag{sand}{extgrey}{\textbf{Single-arm} \textperiodcentered{} Chiricozzi (77\%)}
 \end{tcbraster}
 
-\note{\textasciitilde 1:00. To test this we need a ground truth, so we take a connected network and break it. It's a plaque psoriasis network: nine RCTs, six active treatments plus placebo, four with IPD and five with aggregate data, outcomes PASI 75, 90 and 100. We remove CLEAR, the placebo arms of the secukinumab trials and the secukinumab arms of FIXTURE, so secukinumab is cut off from placebo. Then we rebuild it four ways. A random bridge, with the predictive prior on all three disconnected studies. Two fixed bridges between trials: the highest-overlap pair at 97\%, and a lower one at 74\%. And a fixed bridge through PROSPECT, a single-arm observational study of secukinumab, which is the single-arm case from the title. Each is compared with the fully connected ML-NMR. In the network plots, navy edges are aggregate data and green are IPD. The IPD here are simulated to resemble the original trials, as in the multinma example data.}
+\note{\textasciitilde 1:00. To test this we need a ground truth, so we take a connected network and break it. It's a plaque psoriasis network: nine RCTs, six active treatments plus placebo, four with IPD and five with aggregate data, outcomes PASI 75, 90 and 100. We remove CLEAR, the placebo arms of the secukinumab trials and the secukinumab arms of FIXTURE, so secukinumab is cut off from placebo. Then we rebuild it six ways. Two random bridges, with the predictive prior on one or all three disconnected studies. Two fixed bridges between trials: the highest-overlap pair at 97\%, and a lower one at 74\%. And two fixed bridges through single-arm observational studies of secukinumab, PROSPECT and Chiricozzi, which is the single-arm case from the title. The lower-overlap and Chiricozzi bridges are there to show how the diagnostics behave, not as choices we'd recommend. Each is compared with the fully connected ML-NMR. In the network plots, navy edges are aggregate data and green are IPD. The IPD here are simulated to resemble the original trials, as in the multinma example data.}
 \end{frame}
 }
 
@@ -493,39 +495,39 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
     \node[anchor=south west,font=\small\bfseries,align=left,text width=4.6cm] at (0,0.15) {#2};
     \foreach \fm/\flo/\fhi/\fc [count=\i] in {#3} {
       \ifnum\i=1
-        \fill[ink,opacity=0.08] ({(\flo-0.3)/0.7*4.6},-0.05) rectangle ({(\fhi-0.3)/0.7*4.6},-2.10);
-        \draw[ink,dashed,line width=0.6pt] ({(\fm-0.3)/0.7*4.6},-0.05) -- ({(\fm-0.3)/0.7*4.6},-2.10);
+        \fill[ink,opacity=0.08] ({(\flo-0.3)/0.7*4.6},-0.05) rectangle ({(\fhi-0.3)/0.7*4.6},-2.98);
+        \draw[ink,dashed,line width=0.6pt] ({(\fm-0.3)/0.7*4.6},-0.05) -- ({(\fm-0.3)/0.7*4.6},-2.98);
       \fi
       \draw[\fc,line width=1.6pt,line cap=round] ({(\flo-0.3)/0.7*4.6},-0.42*\i+0.21) -- ({(\fhi-0.3)/0.7*4.6},-0.42*\i+0.21);
       \fill[\fc] ({(\fm-0.3)/0.7*4.6},-0.42*\i+0.21) circle (0.9mm);
     }
-    \draw[axis] (0,-2.12) -- (4.6,-2.12);
+    \draw[axis] (0,-3.0) -- (4.6,-3.0);
     \foreach \t in {0.4,0.6,0.8,1.0} {
-      \draw[axis] ({(\t-0.3)/0.7*4.6},-2.12) -- ++(0,-0.08);
-      \node[font=\scriptsize,text=muted,below] at ({(\t-0.3)/0.7*4.6},-2.17) {\t};
+      \draw[axis] ({(\t-0.3)/0.7*4.6},-3.0) -- ++(0,-0.08);
+      \node[font=\scriptsize,text=muted,below] at ({(\t-0.3)/0.7*4.6},-3.05) {\t};
     }
   \end{scope}}
 {\renewcommand{\footleft}{ML-NMR posterior mean and 95\% CrI \textperiodcentered{} dashed line and band: fully connected estimate}
 \begin{frame}{Only bridged comparisons depend on the bridge}{Results \textperiodcentered{} probability of PASI 75, FIXTURE population}
 \centering
 \begin{tikzpicture}
-  \foreach \lab/\lc [count=\i] in {Fully connected/ink, Random/randteal,
+  \foreach \lab/\lc [count=\i] in {Fully connected/ink, Random-3P/randteal, Random-1P/randteal,
       {Fixed \textperiodcentered{} UNC-3/ERA (97\%)}/fixorange, {Fixed \textperiodcentered{} JUNC/IXOR (74\%)}/fixorange,
-      Single-arm \textperiodcentered{} PROSPECT/extgrey}
+      Single-arm \textperiodcentered{} PROSPECT/extgrey, Single-arm \textperiodcentered{} Chiricozzi/extgrey}
     \node[anchor=east,font=\scriptsize\bfseries,text=\lc] at (-0.2,-0.42*\i+0.21) {\lab};
-  \forestpanel{0}{Secukinumab 150 mg\\{\scriptsize\color{bristolred}crosses the bridge}}{0.67/0.63/0.70/ink, 0.66/0.56/0.76/randteal, 0.61/0.54/0.68/fixorange, 0.66/0.54/0.78/fixorange, 0.59/0.46/0.70/extgrey}
-  \forestpanel{5.4}{Etanercept\\{\scriptsize\color{muted}within sub-network 1}}{0.44/0.40/0.49/ink, 0.45/0.41/0.50/randteal, 0.45/0.41/0.50/fixorange, 0.45/0.41/0.50/fixorange, 0.45/0.40/0.50/extgrey}
+  \forestpanel{0}{Secukinumab 150 mg\\{\scriptsize\color{bristolred}crosses the bridge}}{0.67/0.63/0.70/ink, 0.66/0.56/0.76/randteal, 0.65/0.50/0.78/randteal, 0.61/0.54/0.68/fixorange, 0.66/0.54/0.78/fixorange, 0.59/0.46/0.70/extgrey, 0.50/0.37/0.62/extgrey}
+  \forestpanel{5.4}{Etanercept\\{\scriptsize\color{muted}within sub-network 1}}{0.44/0.40/0.49/ink, 0.45/0.41/0.50/randteal, 0.45/0.41/0.50/randteal, 0.45/0.41/0.50/fixorange, 0.45/0.41/0.50/fixorange, 0.45/0.40/0.50/extgrey, 0.45/0.41/0.50/extgrey}
 \end{tikzpicture}
 \vfill
 \begin{columns}[t,onlytextwidth]
 \column{0.235\textwidth}\point[ink]{Etanercept: every bridge matches the full network}
-\column{0.235\textwidth}\point[randteal]{Random bridge sits closest to the full network}
+\column{0.235\textwidth}\point[randteal]{Random-3P sits closest; 1P is wider}
 \column{0.235\textwidth}\point[fixorange]{74\% pair as close as 97\%: overlap $\neq$ bias}
-\column{0.235\textwidth}\point[extgrey]{Single-arm bridge: wider and a little low, still overlaps}
+\column{0.235\textwidth}\point[extgrey]{PROSPECT overlaps, Chiricozzi drifts low}
 \end{columns}
 \vspace{1mm}
 
-\note{\textasciitilde 1:30. Two comparisons, predicted in the FIXTURE population as the probability of PASI 75. The dashed line and grey band are the fully connected answer we're trying to recover. On the right is a control: etanercept, which sits inside sub-network 1, so its comparisons never cross the bridge. Every bridge gives the same answer as the full network. On the left is secukinumab 150, which does cross the bridge, and now the choice matters. The random bridge sits closest to the connected answer. Putting the prior on just one study, not shown, gives much the same answer with wider intervals. The fixed bridges: the 97\% pair is more precise but shifted, while the 74\% pair recovers the connected estimate. It's one comparison and the intervals overlap, but high overlap doesn't guarantee no bias. Both adjust for the observed covariates, so what's left is unobserved differences. The single-arm bridge through PROSPECT is wider and a little low, but still overlaps the connected answer. A second single-arm study we tried, Chiricozzi, drifted further, most likely from unobserved differences. So the bridging assumptions only bite on the comparisons that rely on the bridge. The same pattern holds for secukinumab 300 and for PASI 90 and 100. (If asked why ML-NMR and NMA agree here: effect modifiers are similarly distributed across these trials, so adjustment moves the estimates very little.)}
+\note{\textasciitilde 1:30. Two comparisons, predicted in the FIXTURE population as the probability of PASI 75. The dashed line and grey band are the fully connected answer we're trying to recover. On the right is a control: etanercept, which sits inside sub-network 1, so its comparisons never cross the bridge. Every bridge gives the same answer as the full network. On the left is secukinumab 150, which does cross the bridge, and now the choice matters. The random bridge with the prior on all three disconnected studies sits closest to the connected answer, and putting the prior on one study widens the intervals, as you'd expect. The fixed bridges: the 97\% pair is more precise but shifted, while the 74\% pair recovers the connected estimate. It's one comparison and the intervals overlap, but high overlap doesn't guarantee no bias. Both adjust for the observed covariates, so what's left is unobserved differences. The single-arm bridges: PROSPECT is wider and a little low, but still overlaps the connected answer, while Chiricozzi drifts furthest, most likely from unobserved differences. So the bridging assumptions only bite on the comparisons that rely on the bridge. The same pattern holds for secukinumab 300 and for PASI 90 and 100. (If asked why ML-NMR and NMA agree here: effect modifiers are similarly distributed across these trials, so adjustment moves the estimates very little.)}
 \end{frame}
 }
 
