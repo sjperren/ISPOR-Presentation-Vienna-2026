@@ -249,39 +249,37 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \begin{columns}[c,onlytextwidth]
 \column{0.58\textwidth}
 \centering
-\begin{tikzpicture}[x=0.95mm,y=0.74mm,
-    bigp/.style={pnode,minimum size=6.4mm,font=\small\bfseries},
-    bigg/.style={gnode,minimum size=6.4mm,font=\small\bfseries}]
-  % disconnected RCT
-  \node[bigg] (c) at (8,38) {C};
-  \node[bigg] (d) at (8,20) {D};
+\begin{tikzpicture}[x=0.95mm,y=0.85mm,
+    bigp/.style={pnode,minimum size=6.8mm,font=\small\bfseries},
+    bigg/.style={gnode,minimum size=6.8mm,font=\small\bfseries}]
+  % sub-network 2 (disconnected): green pair
+  \node[bigg] (c) at (10,30) {C};
+  \node[bigg] (d) at (10,4) {D};
   \draw[gedge,line width=1.6pt] (c) -- (d);
-  \node[anchor=south,font=\scriptsize\bfseries,text=netgreenline] at (8,43) {Disconnected RCT};
-  % single-arm study
-  \node[bigg] (g) at (8,0) {G};
-  \node[anchor=north,font=\scriptsize\bfseries,text=netgreenline] at (8,-5) {Single-arm study};
   % sub-network 1 (reference)
-  \node[bigp,font=\scriptsize\bfseries] (ref) at (56,19) {Ref};
-  \foreach \xx/\yy/\lab in {67/36/A, 78/27/B, 78/11/E, 67/2/F} {
+  \node[bigp,font=\scriptsize\bfseries] (ref) at (54,17) {Ref};
+  \foreach \xx/\yy/\lab in {65/34/A, 76/25/B, 76/9/E, 65/0/F} {
     \node[bigp] (t) at (\xx,\yy) {\lab}; \draw[pedge,line width=1.6pt] (ref) -- (t); }
-  \node[anchor=north,font=\scriptsize\bfseries,text=netpurpleline,align=center] at (66,-5) {Sub-network 1\\contains the reference};
-  % the bridges
-  \draw[bristolred,densely dotted,line width=1.8pt] (10.5,29) -- (ref);
-  \draw[bristolred,densely dotted,line width=1.8pt] (g) -- (ref);
-  \node[font=\Large,text=bristolred] at (31,30.5) {$\mu_{j'} = {?}$};
-  \node[font=\scriptsize\bfseries,text=bristolred] at (33,17) {no randomised link};
+  % the bridge
+  \draw[bristolred,densely dotted,line width=1.8pt] (12.5,17) -- (ref);
+  \node[font=\Large,text=bristolred] at (31,23.5) {$\mu_{j'} = {?}$};
+  \node[font=\scriptsize\bfseries,text=bristolred] at (31,11) {no randomised link};
+  % labels
+  \node[anchor=north,font=\scriptsize\bfseries,text=netgreenline,align=center] at (10,-4) {Sub-network 2\\disconnected studies $j'$};
+  \node[anchor=north,font=\scriptsize\bfseries,text=netpurpleline,align=center] at (64,-4) {Sub-network 1\\contains the reference};
 \end{tikzpicture}
 \column{0.38\textwidth}
 \raggedright
-{\small\color{body}A disconnected RCT keeps its own randomised comparison. A single-arm study has none, and sees $\bm{\beta}_1 + \bm{\beta}_{2k}$ only as one slope. $\bm{\beta}_1$ comes from the rest of the network.\par}\vspace{4mm}
-{\small\color{body}\textcolor{bristolred}{\textbf{Missing for both:}} $\mu_{j'}$, the outcome on the reference treatment in the disconnected studies.\par}\vspace{4mm}
+{\small\color{body}Relative effects within sub-network 2 still come from its own trials. Covariate effects are shared across the network.\par}\vspace{4mm}
+{\small\color{body}\textcolor{bristolred}{\textbf{Missing:}} $\mu_{j'}$, the outcome on the reference treatment in the disconnected studies.\par}\vspace{4mm}
+{\small\color{ink}\textbf{Single-arm studies} are bridged the same way.\par}\vspace{4mm}
 {\scriptsize\color{muted}Builds on models for baselines across studies (B\'eliveau et al.\ 2017; Thom et al.\ 2022).\par}
 \end{columns}
 \vfill
 \centering
-{\Large $\eta_{j'k}(\bm{x}) = \colorbox{pinkbg}{$\color{bristolred}\mu_{j'}$} + \bm{x}^T{\underbrace{(\bm{\beta}_1 + \bm{\beta}_{2k})}_{\makebox[0pt][c]{\scriptsize\color{muted}single-arm: estimated as one slope}}} + \gamma_k$}\par
-\vspace{1mm}
-\note{\textasciitilde 0:50. Here's the idea. Sub-network 1, in purple, has the reference treatment. That's usually placebo, but any well-informed treatment will do. On the left, in green, are the two things we want to bring in: a disconnected RCT, and a single-arm study. Both are handled the same way. If we look at the linear predictor, the disconnected RCT still gives us its own randomised comparison, the single-arm study gives none, and the covariate effects are shared across the whole network. What's missing in both cases is mu j-prime, the study baseline: the adjusted outcome on the reference treatment in those studies, which they can't tell us because the reference isn't observed there. That's the one thing we bring in from outside. Modelling baselines across studies builds on earlier work, like B\'eliveau and colleagues and Thom and colleagues. We add individual-level adjustment, and call it ML-NMR with bridging, ML-NMR-B. There are two ways to do it. I'll show them on the disconnected RCT, but a single-arm study works exactly the same way.}
+{\Large $\eta_{j'k}(\bm{x}) = \colorbox{pinkbg}{$\color{bristolred}\mu_{j'}$} + \bm{x}^T(\bm{\beta}_1 + \bm{\beta}_{2k}) + \gamma_k$}\par
+\vspace{4mm}
+\note{\textasciitilde 0:50. Here's the idea. Sub-network 1, in purple, has the reference treatment. That's usually placebo, but any well-informed treatment will do. Sub-network 2, in green, has no randomised path back to it. If we look at the linear predictor, relative effects within sub-network 2 still come from its own trials, and the covariate effects are shared across the whole network. What's missing is mu j-prime, the study baseline: the adjusted outcome on the reference treatment in those studies, which they can't tell us because the reference isn't observed there. That's the one thing we bring in from outside. Modelling baselines across studies builds on earlier work, like B\'eliveau and colleagues and Thom and colleagues. We add individual-level adjustment, and call it ML-NMR with bridging, ML-NMR-B. A single-arm study is bridged in exactly the same way. There are two ways to do it.}
 \end{frame}
 
 % =====================================================================
