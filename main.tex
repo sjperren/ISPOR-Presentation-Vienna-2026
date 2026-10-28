@@ -1,7 +1,7 @@
 % ISPOR Europe 2026, Vienna - ML-NMR-B podium talk
 % Compile with pdfLaTeX. To show speaker notes, uncomment the \setbeameroption line below.
 \documentclass[aspectratio=169,10pt,t]{beamer}
- \setbeameroption{show notes on second screen=right}
+% \setbeameroption{show notes on second screen=right}
 
 \usepackage[T1]{fontenc}
 \usepackage{bm}
@@ -119,7 +119,7 @@
 \vspace{1mm}
 {\footnotesize\color{muted}University of Bristol\par}
 \vspace*{3mm}
-\note{\textasciitilde 15 s. Hi, I'm Sam, a PhD student at Bristol. My presentation will cover, why disconnected networks in NMA are a problem, how we extend ML-NMR to bridge them, and how you can judge whether a bridge is plausible.}
+\note{\textasciitilde 15 s. Hi, I'm Sam, a PhD student at Bristol. My presentation will cover, why disconnected networks in NMA are a problem, how we extended ML-NMR to bridge them.}
 \end{frame}
 }
 
@@ -167,7 +167,7 @@
 \end{columns}
 \end{tcolorbox}
 \vspace{1mm}
-\note{\textasciitilde 1:15. Network meta-analysis lets us compare many treatments at once, as long as every treatment is joined by a path of randomised trials, like the triangle on the left. Health technology assessment committees increasingly see the other two pictures: a treatment that only comes from a single-arm study, or whole sub-networks with no common comparator between them. Comparisons across that gap are unanchored. In a review of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment methods, and 16 of those were unanchored comparisons using MAIC. And in over half of them, the decision involved more than two treatments, but MAIC and STC can only compare one pair of studies at a time. They also only give estimates in the aggregate study's population, and give you no way to assess whether the assumption they rest on is plausible.}
+\note{\textasciitilde 1:15. Network meta-analysis lets us compare many treatments at once, as long as every treatment is joined by a path of randomised trials, like the triangle on the left. Health technology assessment committees increasingly see the other two pictures: a treatment that only comes from a single-arm study, or whole sub-networks with no common comparator between them. Comparisons across that gap are unanchored. In a review of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment methods, and 16 of those were unanchored comparisons using Matching adjusted indirect comparisons (MAIC). And in over half of them, the decision involved more than two treatments, but MAIC and Simulated Treatment Comparisons (STC) can only compare one pair of studies at a time. They also only give estimates in the aggregate study's population, and give you no way to assess whether the assumption they rest on is plausible.}
 \end{frame}
 % =====================================================================
 \begin{frame}
@@ -195,7 +195,7 @@
 \end{tikzpicture}
 \end{columns}
 \vfill
-\note{\textasciitilde 0:45. Whatever method you use, MAIC, STC or ours, comparing treatments across a disconnected network rests on one assumption: conditional constancy of absolute effects, from NICE DSU TSD 18. Once you've adjusted for covariates, absolute outcomes are exchangeable between studies. The key word is absolute. A connected NMA only assumes constancy of relative effects, so only effect modifiers need to be balanced, and randomisation takes care of prognostic factors. Across a disconnected network there's no randomisation to lean on, so every prognostic factor and effect modifier has to be balanced or adjusted for, including the ones we can't measure. That's the challenge, and it's why we need population adjustment.}
+\note{\textasciitilde 0:45. Whatever method you use, comparing treatments across a disconnected network rests on the assumption of conditional constancy of absolute effects. Once you've adjusted for covariates, absolute outcomes are exchangeable between studies. The key word is absolute. A connected NMA only assumes constancy of relative effects, so only effect modifiers need to be balanced, and randomisation takes care of prognostic factors. Across a disconnected network there's no randomisation to lean on, so every prognostic factor and effect modifier has to be balanced or adjusted for, including the ones we can't measure.}
 \end{frame}
 
 % =====================================================================
@@ -241,7 +241,7 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \vfill
 \statement{Any network size, any target population. \textcolor{bristolred}{But only for connected networks.}}
 \vspace{2mm}
-\note{\textasciitilde 1:00. The tool we use to adjust is ML-NMR. For studies with IPD we fit an individual-level regression: a study baseline mu, prognostic effects beta-1, effect modifiers beta-2, and treatment effects gamma. For studies with only aggregate data, we take that same individual model and integrate it over the study's covariate distribution, so there's no aggregation bias. That gives population adjustment in networks of any size, with estimates in whatever target population the decision needs. The catch: until now it needed a connected network.}
+\note{\textasciitilde 1:00. So first how do we get the conditional part of this assumption. The tool we use to adjust is ML-NMR. For studies with IPD we fit an individual-level regression: a study baseline mu, prognostic effects beta-1, effect modifiers beta-2, and treatment effects gamma. For studies with only aggregate data, we take that same individual model and integrate it over the study's covariate distribution, so there's no aggregation bias. That gives population adjustment in networks of any size, with estimates in whatever target population the decision needs. But until now it needed a connected network.}
 \end{frame}
 
 % =====================================================================
@@ -281,7 +281,7 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \centering
 {\Large $\eta_{j'k}(\bm{x}) = \colorbox{pinkbg}{$\color{bristolred}\mu_{j'}$} + \bm{x}^T(\bm{\beta}_1 + \bm{\beta}_{2k}) + \gamma_k$}\par
 \vspace{4mm}
-\note{\textasciitilde 0:50. Here's the idea. Sub-network 1, in purple, has the reference treatment. That's usually placebo, but any well-informed, stable treatment will do. On the left, in green, are the two things we want to bring in: a disconnected RCT, and a single-arm study. Both are handled the same way. Look at the linear predictor. The disconnected RCT still gives us its own randomised comparison, the single-arm study gives none, and the covariate effects are shared across the whole network. What's missing in both cases is mu j-prime, the study baseline: the adjusted outcome on the reference treatment in those studies, which they can't tell us because the reference isn't observed there. That's the one thing we bring in from outside. Modelling baselines across studies builds on earlier work, like B\'eliveau and colleagues and Thom and colleagues. We add individual-level adjustment, and call it ML-NMR with bridging, ML-NMR-B. There are two ways to do it. I'll show them on the disconnected RCT, but a single-arm study works exactly the same way.}
+\note{\textasciitilde 0:50. Here's the idea. Sub-network 1, in purple, has the reference treatment. That's usually placebo, but any well-informed treatment will do. On the left, in green, are the two things we want to bring in: a disconnected RCT, and a single-arm study. Both are handled the same way. If we look at the linear predictor, the disconnected RCT still gives us its own randomised comparison, the single-arm study gives none, and the covariate effects are shared across the whole network. What's missing in both cases is mu j-prime, the study baseline: the adjusted outcome on the reference treatment in those studies, which they can't tell us because the reference isn't observed there. That's the one thing we bring in from outside. Modelling baselines across studies builds on earlier work, like B\'eliveau and colleagues and Thom and colleagues. We add individual-level adjustment, and call it ML-NMR with bridging, ML-NMR-B. There are two ways to do it. I'll show them on the disconnected RCT, but a single-arm study works exactly the same way.}
 \end{frame}
 
 % =====================================================================
