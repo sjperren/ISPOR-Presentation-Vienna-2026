@@ -538,13 +538,13 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \renewcommand{\footleft}{Implemented in multinma: coming to CRAN shortly}
 \begin{frame}{What ML-NMR-B gives you}{Take-homes}
 \vspace*{-3mm}
-\takeaway{1}{Population adjustment across disconnected networks and single-arm studies}{Builds on models for baselines (B\'eliveau 2017; Thom 2022), adding IPD-level adjustment and a two-stage fit.}
-\takeaway{2}{Allows for unobserved differences}{The random baseline bridge carries residual between-study variation through as uncertainty.}
+\takeaway{1}{Population adjustment across disconnected networks and single-arm studies}{Disconnected RCTs or single-arm studies, IPD or AgD, any network size, any target population.}
+\takeaway{2}{Carries baseline variation across the bridge}{$\tau_\mu$ measures leftover baseline variation. The random bridge carries it into the disconnected estimates.}
 \takeaway{3}{Makes the key assumption judgeable}{$\tau_\mu$, overlap ESS and predictive checks, plus sensitivity analyses across bridges.}
 \begin{tintcard}{tealbg}
 {\footnotesize\textcolor{randteal}{\textbf{Next: a simulation study}}\textcolor{body}{\ will test the bias and coverage of each bridging strategy, including when the bridging assumptions fail.}\par}
 \end{tintcard}
-\note{\textasciitilde 0:45. Three things to take away. One: ML-NMR-B brings population adjustment to disconnected networks and single-arm studies. It builds on existing baseline-exchangeability models, like Béliveau and Thom, but adds adjustment at the individual level and a two-stage fit that keeps randomisation within each sub-network intact. Two: the random baseline bridge allows for the unobserved differences between studies that are almost always there, by carrying them through as uncertainty in the predictive distribution. Three: the assumption every unanchored comparison makes is now something you can judge, through tau-mu, overlap and predictive checks, with sensitivity analyses showing how much the chose of bridge matters. It's implemented in multinma, and will be on CRAN shortly. Next, we'll run a simulation study to test the bias and coverage of each bridging strategy when the bridging assumptions fail.}
+\note{\textasciitilde 0:45. Three things to take away. One: ML-NMR-B brings population adjustment to disconnected networks and single-arm studies. It works for disconnected RCTs or single-arm studies, with IPD or aggregate data, in networks of any size, and gives estimates in any target population. Two: the random baseline bridge measures the variation left in the reference baselines after adjustment, tau-mu, and carries it across the bridge as uncertainty in the disconnected estimates. Three: the assumption every unanchored comparison makes is now something you can judge, through tau-mu, overlap and predictive checks, with sensitivity analyses showing how much the chose of bridge matters. It's implemented in multinma, and will be on CRAN shortly. Next, we'll run a simulation study to test the bias and coverage of each bridging strategy when the bridging assumptions fail.}
 \end{frame}
 
 % =====================================================================
