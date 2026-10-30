@@ -278,7 +278,7 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \end{columns}
 \vfill
 \centering
-{\Large $\eta_{j'k}(\bm{x}) = {\underbrace{\colorbox{pinkbg}{$\color{bristolred}\mu_{j'}$}}_{\lab{\color{bristolred}study\\[-0.3ex]\color{bristolred}baseline}}} + {\underbrace{\bm{x}^T\bm{\beta}_1}_{\lab{prognostic\\[-0.3ex]effects}}} + {\underbrace{\bm{x}^T\bm{\beta}_{2k}}_{\lab{effect\\[-0.3ex]modification}}} + {\underbrace{\gamma_k}_{\lab{treatment\\[-0.3ex]effect}}}$}\par
+{\Large $\eta_{j'k}(\bm{x}) = {\underbrace{\colorbox{pinkbg}{$\color{bristolred}\mu_{j'}$}}_{\lab{\color{bristolred}study\\[-0.3ex]\color{bristolred}baseline}}} + \bm{x}^T({\underbrace{\bm{\beta}_1}_{\lab{prognostic\\[-0.3ex]effects}}} + {\underbrace{\bm{\beta}_{2k}}_{\lab{effect\\[-0.3ex]modification}}}) + {\underbrace{\gamma_k}_{\lab{treatment\\[-0.3ex]effect}}}$}\par
 \vspace{1mm}
 \note{\textasciitilde 0:50. Here's the idea. Sub-network 1, in purple, has the reference treatment. That's usually placebo, but any well-informed treatment will do. Sub-network 2, in green, has no randomised path to that reference. If we look at the linear predictor, relative effects within sub-network 2 still come from its own trials, and the covariate effects are shared across the whole network. What's missing is mu j-prime, the study baseline: the adjusted outcome on the reference treatment in those studies, which they can't tell us because the reference isn't observed there. That's the one thing we provide to this disconnected part. If there is IPD within either subnetwork, we can add individual-level adjustment, and we call this ML-NMR with bridging, ML-NMR-B. A single-arm study is bridged in the same way. There are two methods to ML-NMR-B.}
 \end{frame}
