@@ -1,7 +1,7 @@
 % ISPOR Europe 2026, Vienna - ML-NMR-B podium talk
 % Compile with pdfLaTeX. To show speaker notes, uncomment the \setbeameroption line below.
 \documentclass[aspectratio=169,10pt,t]{beamer}
- \setbeameroption{show notes on second screen=right}
+ %\setbeameroption{show notes on second screen=right}
 
 \usepackage[T1]{fontenc}
 \usepackage{bm}
@@ -539,7 +539,7 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \begin{frame}{What ML-NMR-B gives you}{Take-homes}
 \vspace*{-3mm}
 \takeaway{1}{Population adjustment across disconnected networks and single-arm studies}{Disconnected RCTs or single-arm studies, IPD or AgD, any network size, any target population.}
-\takeaway{2}{Carries baseline variation across the bridge}{$\tau_\mu$ measures leftover baseline variation. The random bridge carries it into the disconnected estimates.}
+\takeaway{2}{Carries any uncertainty in the baseline across the bridge}{$\tau_\mu$ measures leftover baseline variation. The random bridge carries it into the disconnected estimates.}
 \takeaway{3}{Makes the key assumption judgeable}{$\tau_\mu$, overlap ESS and predictive checks, plus sensitivity analyses across bridges.}
 \begin{tintcard}{tealbg}
 {\footnotesize\textcolor{randteal}{\textbf{Next: a simulation study}}\textcolor{body}{\ will test the bias and coverage of each bridging strategy, including when the bridging assumptions fail.}\par}
