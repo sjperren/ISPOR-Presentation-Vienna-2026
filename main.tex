@@ -75,6 +75,7 @@
   \fi}
 
 % ---------- Helpers ----------
+\newcommand{\labt}[1]{\text{\tiny\color{muted}\begin{tabular}{@{}c@{}}#1\end{tabular}}}
 \newcommand{\lab}[1]{\text{\scriptsize\color{muted}\begin{tabular}{@{}c@{}}#1\end{tabular}}}
 \newcommand{\eyebrow}[2][bristolred]{{\scriptsize\bfseries\color{#1}\textls[120]{\MakeUppercase{#2}}}}
 \newcommand{\statement}[1]{{\headfont\large #1\par}}
@@ -207,7 +208,7 @@
 \eyebrow{Studies with IPD: fit to individuals}
 
 \centering
-\begin{tikzpicture}[x=1mm,y=1mm]
+\begin{tikzpicture}[x=1mm,y=0.8mm]
   \draw[axis] (0,0) -- (58,0);
   \draw[bristolred,line width=1.4pt,domain=0:58,samples=60] plot (\x,{2+16*logist(\x,30,5)});
   \foreach \x in {3,7,11,15,18,21,25,32} \fill[ink,opacity=0.55] (\x,2) circle (0.9);
@@ -218,14 +219,14 @@
 {\scriptsize\color{body}Each dot is one person: responded (top) or not (bottom), by covariate value}
 
 \centering
-$\eta_{jk}(\bm{x}) = \mu_j + \bm{x}^T(\bm{\beta}_1 + \bm{\beta}_{2k}) + \gamma_k$
+$\eta_{jk}(\bm{x}) = {\underbrace{\mu_j}_{\labt{baseline}}} + \bm{x}^T({\underbrace{\bm{\beta}_1}_{\labt{prognostic}}} + {\underbrace{\bm{\beta}_{2k}}_{\labt{effect\\[-0.4ex]modifier}}}) + {\underbrace{\gamma_k}_{\labt{treatment\\[-0.4ex]effect}}}$
 \end{card}
 \column{0.485\textwidth}
 \begin{card}
 \eyebrow{Aggregate data: integrate over $f(\bm{x})$}
 
 \centering
-\begin{tikzpicture}[x=1mm,y=1mm]
+\begin{tikzpicture}[x=1mm,y=0.8mm]
   \draw[axis] (0,0) -- (58,0);
   \fill[bristolred,opacity=0.15,domain=8:52,samples=50] plot (\x,{14*gauss(\x,30,7)}) -- (52,0) -- (8,0) -- cycle;
   \draw[bristolred,opacity=0.6,line width=1pt,domain=8:52,samples=50] plot (\x,{14*gauss(\x,30,7)});
@@ -398,8 +399,9 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \end{tikzpicture}
 \raggedright
 
-{\scriptsize\color{body}Can we tell which study each person came from? Can help choose the anchor.\par}
-{\scriptsize\color{body}\textcolor{bristolred}{\textbf{Why overlap?}} Similar on observed covariates $\Rightarrow$ more likely similar on unobserved ones, with clinical input.\par}
+{\scriptsize\color{body}Can help choose the anchor.\par}
+{\scriptsize\color{body}\textcolor{bristolred}{\textbf{Why overlap?}} Similar observed covariates $\Rightarrow$ more likely similar unobserved ones.\par}
+{\scriptsize\color{muted}\textbf{Limitation:} observed covariates only, so it's indirect.\par}
 \end{card}
 \begin{card}
 \eyebrow{Baseline variation}
@@ -408,18 +410,20 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \vspace{1mm}
 \centering
 \begin{tikzpicture}[x=1mm,y=0.75mm]
+  \fill[bristolred,opacity=0.12,domain=1:37,samples=60] plot (\x,{3.6*gauss(\x,19,6.5)}) -- (37,0) -- (1,0) -- cycle;
+  \draw[bristolred,line width=1.2pt,domain=1:37,samples=60] plot (\x,{3.6*gauss(\x,19,6.5)});
+  \fill[randteal,opacity=0.18,domain=1:37,samples=60] plot (\x,{10*gauss(\x,19,2.2)}) -- (37,0) -- (1,0) -- cycle;
+  \draw[randteal,line width=1.3pt,domain=1:37,samples=60] plot (\x,{10*gauss(\x,19,2.2)});
   \draw[axis] (0,0) -- (38,0);
-  \priorcurve
-  \draw[randteal,line width=1.3pt,domain=0:38,samples=60] plot (\x,{9*gauss(\x,5,2.5)});
-  \draw[bristolred,line width=1.3pt,domain=0:38,samples=60] plot (\x,{9*gauss(\x,27,2.8)});
-  \node[font=\tiny\bfseries,text=randteal,below] at (5,0) {reassuring};
-  \node[font=\tiny\bfseries,text=bristolred,below] at (27,0) {warning};
+  \node[font=\tiny\bfseries,text=randteal,anchor=west] at (23,8) {small $\tau_\mu$};
+  \node[font=\tiny\bfseries,text=bristolred,anchor=west] at (27,3.6) {large $\tau_\mu$};
+  \node[font=\tiny,text=muted,below] at (19,0) {adjusted study baselines $\mu_j$};
 \end{tikzpicture}
 \raggedright
 
-{\scriptsize\color{body}\textcolor{randteal}{\textbf{Small:}} reassuring, we're unlikely to be missing key prognostic factors.\par}
+{\scriptsize\color{body}\textcolor{randteal}{\textbf{Small:}} reassuring, unlikely to be missing key prognostic factors.\par}
 {\scriptsize\color{body}\textcolor{bristolred}{\textbf{Large:}} unmeasured differences between studies.\par}
-{\scriptsize\color{body}Posterior hugs the prior (dashed)? Too few studies to tell.\par}
+{\scriptsize\color{muted}\textbf{Limitation:} directly what we want, but low power with few studies.\par}
 \end{card}
 \begin{card}
 \eyebrow{Prediction}
@@ -429,8 +433,9 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \begin{itemize}\setlength{\itemsep}{1.2mm}\scriptsize
 \item Leave-one-out CV in the IPD studies
 \item Are covariates informative about outcomes?
-\item Well estimated enough to predict into disconnected studies and target populations?
+\item Good enough to predict into disconnected studies?
 \end{itemize}
+{\scriptsize\color{muted}\textbf{Limitation:} within-sample, not across studies.\par}
 \end{card}
 \end{tcbraster}
 \vfill
@@ -521,7 +526,7 @@ $\theta_{\bullet jk} = \displaystyle\int g^{-1}\{\eta_{jk}(\bm{x})\}\, f_{jk}(\b
 \vfill
 \begin{columns}[t,onlytextwidth]
 \column{0.235\textwidth}\point[ink]{Etanercept: every bridge matches the full network}
-\column{0.235\textwidth}\point[randteal]{Random-3P sits closest; 1P is wider}
+\column{0.235\textwidth}\point[randteal]{Random-3P closest: averages out biases}
 \column{0.235\textwidth}\point[fixorange]{74\% pair as close as 97\%: overlap $\neq$ bias}
 \column{0.235\textwidth}\point[extgrey]{PROSPECT overlaps, Chiricozzi drifts low}
 \end{columns}
