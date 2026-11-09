@@ -138,9 +138,9 @@
     \node[anchor=north,font=\scriptsize\bfseries,text=\col,text width=34mm,align=center] at (\px+14.5,-1.5) {\lab};
   \foreach \px in {0,32,64} \draw[rulegrey,line width=0.6pt,rounded corners=1.5mm] (\px,0) rectangle ++(29,27);
   % what each picture allows
-  \node[anchor=north,font=\scriptsize,text=body,text width=33mm,align=center] at (14.5,-6) {\textbf{NMA:} $d_{AC} = d_{AB} + d_{BC}$\\{\color{muted}randomised path through B}};
-  \node[anchor=north,font=\scriptsize,text=body,text width=33mm,align=center] at (46.5,-6) {\textbf{No comparator:}\\{\color{muted}B vs anything is unanchored}};
-  \node[anchor=north,font=\scriptsize,text=body,text width=33mm,align=center] at (78.5,-6) {\textbf{No path between them:}\\{\color{muted}comparisons across the gap are unanchored}};
+  \node[anchor=north,font=\scriptsize,text=body,text width=33mm,align=center,inner sep=0pt,font=\scriptsize\linespread{0.9}\selectfont] at (14.5,-6.6) {\textbf{NMA:} $d_{AC} = d_{AB} + d_{BC}$\\{\color{muted}randomised path through B}};
+  \node[anchor=north,font=\scriptsize,text=body,text width=33mm,align=center,inner sep=0pt,font=\scriptsize\linespread{0.9}\selectfont] at (46.5,-6.6) {\textbf{No comparator:}\\{\color{muted}any comparison with it is unanchored}};
+  \node[anchor=north,font=\scriptsize,text=body,text width=33mm,align=center,inner sep=0pt,font=\scriptsize\linespread{0.9}\selectfont] at (78.5,-6.6) {\textbf{No path between them:}\\{\color{muted}comparisons across the gap are unanchored}};
   % connected: triangle
   \node[pnode] (a1) at (14.5,21.5) {A};
   \node[pnode] (b1) at (6,7) {B};
