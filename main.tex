@@ -547,19 +547,19 @@ $\displaystyle{\underbrace{\theta_{\bullet jk}}_{\labt{expected\\[-0.4ex]arm-lev
 {\renewcommand{\footleft}{ML-NMR posterior mean and 95\% CrI \textperiodcentered{} dashed line and band: fully connected estimate}
 \begin{frame}{Only bridged comparisons depend on the bridge}{Results \textperiodcentered{} probability of PASI 75, FIXTURE population}
 \centering
-\begin{tikzpicture}
+\scalebox{0.9}{\begin{tikzpicture}
   \foreach \lab/\lc [count=\i] in {Fully connected/ink, Random-3P/randteal, Random-1P/randteal,
       {Fixed \textperiodcentered{} UNC-3/ERA (97\%)}/fixorange, {Fixed \textperiodcentered{} JUNC/IXOR (74\%)}/fixorange,
       Single-arm \textperiodcentered{} PROSPECT/extgrey, Single-arm \textperiodcentered{} Chiricozzi/extgrey}
     \node[anchor=east,font=\scriptsize\bfseries,text=\lc] at (-0.2,-0.42*\i+0.21) {\lab};
   \forestpanel{0}{Secukinumab 150 mg\\{\scriptsize\color{bristolred}crosses the bridge}}{0.67/0.63/0.70/ink, 0.66/0.56/0.76/randteal, 0.65/0.50/0.78/randteal, 0.61/0.54/0.68/fixorange, 0.66/0.54/0.78/fixorange, 0.59/0.46/0.70/extgrey, 0.50/0.37/0.62/extgrey}
   \forestpanel{5.4}{Etanercept\\{\scriptsize\color{muted}within sub-network 1}}{0.44/0.40/0.49/ink, 0.45/0.41/0.50/randteal, 0.45/0.41/0.50/randteal, 0.45/0.41/0.50/fixorange, 0.45/0.41/0.50/fixorange, 0.45/0.40/0.50/extgrey, 0.45/0.41/0.50/extgrey}
-\end{tikzpicture}
+\end{tikzpicture}}
 \vfill
 \begin{columns}[t,onlytextwidth]
 \column{0.235\textwidth}\point[ink]{Etanercept: every bridge matches the full network}
 \column{0.235\textwidth}\point[randteal]{Random-3P closest: averages out biases}
-\column{0.235\textwidth}\point[fixorange]{74\% pair as close as 97\%: overlap $\neq$ bias}
+\column{0.235\textwidth}\point[fixorange]{Both overlap well. 97\% bias: likely unmeasured prognostic factors}
 \column{0.235\textwidth}\point[extgrey]{PROSPECT overlaps, Chiricozzi drifts low}
 \end{columns}
 \vspace{1mm}
