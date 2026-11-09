@@ -9,6 +9,8 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric}
 \usepackage[most]{tcolorbox}
+\usepackage{colortbl}
+\usepackage{pifont}
 
 % ---------- Fonts: Source Sans / Source Serif on Overleaf, fallbacks elsewhere ----------
 \IfFileExists{sourcesanspro.sty}{\usepackage[default]{sourcesanspro}}{\usepackage{helvet}\renewcommand{\familydefault}{\sfdefault}}
@@ -77,6 +79,8 @@
 % ---------- Helpers ----------
 \newcommand{\labt}[1]{\text{\tiny\color{muted}\begin{tabular}{@{}c@{}}#1\end{tabular}}}
 \newcommand{\lab}[1]{\text{\scriptsize\color{muted}\begin{tabular}{@{}c@{}}#1\end{tabular}}}
+\newcommand{\yes}{{\large\textcolor{randteal}{\ding{51}}}}
+\newcommand{\no}{{\large\textcolor{bristolred}{\ding{55}}}}
 \newcommand{\eyebrow}[2][bristolred]{{\scriptsize\bfseries\color{#1}\textls[120]{\MakeUppercase{#2}}}}
 \newcommand{\statement}[1]{{\headfont\large #1\par}}
 \newcommand{\point}[2][bristolred]{%
@@ -126,9 +130,10 @@
 }
 
 \begin{frame}{Disconnected networks and single-arm studies}{The problem}
+\vfill
 \begin{columns}[T,onlytextwidth]
 \column{0.70\textwidth}
-\begin{tikzpicture}[x=1mm,y=0.82mm]
+\begin{tikzpicture}[x=1mm,y=1.15mm]
   \foreach \px/\lab/\col in {0/Connected network/body, 32/Single-arm study/bristolred, 64/Disconnected networks/bristolred}
     \node[anchor=north,font=\scriptsize\bfseries,text=\col,text width=34mm,align=center] at (\px+14.5,-1.5) {\lab};
   \foreach \px in {0,32,64} \draw[rulegrey,line width=0.6pt,rounded corners=1.5mm] (\px,0) rectangle ++(29,27);
@@ -150,6 +155,7 @@
   \foreach \xx/\yy in {84/23, 88.5/17, 88.5/10, 84/4} { \node[pnode] (t) at (\xx,\yy) {}; \draw[pedge] (h) -- (t); }
 \end{tikzpicture}
 \column{0.27\textwidth}\raggedright
+\vspace*{4mm}
 \eyebrow[muted]{Review of NICE TAs}\par
 {\tiny\color{muted}268 appraisals, 2010--18\\Phillippo et al., PharmacoEconomics 2019\par}\vspace{1mm}
 {\headfont\Large\bfseries\color{bristolred}18/268}\par
@@ -160,16 +166,7 @@
 {\scriptsize\color{body}involved more than two treatments}
 \end{columns}
 \vfill
-\begin{tcolorbox}[enhanced,colback=sand,frame hidden,borderline west={1.2mm}{0mm}{bristolred},arc=1.5mm,left=4mm,right=3mm,top=1.5mm,bottom=2mm]
-{\small\bfseries Limitations of MAIC and STC}\par\vspace{1.2mm}
-\begin{columns}[t,onlytextwidth]
-\column{0.31\textwidth}\limitation{One pair of studies at a time}
-\column{0.33\textwidth}\limitation{Estimates only in the aggregate study's population}
-\column{0.33\textwidth}\limitation{No way to assess whether the key assumption is plausible}
-\end{columns}
-\end{tcolorbox}
-\vspace{1mm}
-\note{\textasciitilde 1:15. Network meta-analysis lets us compare many treatments at once, as long as every treatment is joined by a path of randomised trials, like the triangle on the left. Health technology assessment committees increasingly see the other two pictures: a treatment that only comes from a single-arm study, or whole sub-networks with no common comparator between them. Comparisons across that gap are unanchored. In a review of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment methods, and 16 of those were unanchored comparisons using Matching adjusted indirect comparisons (MAIC). And in over half of them, the decision involved more than two treatments, but MAIC and Simulated Treatment Comparisons (STC) can only compare one pair of studies at a time. They also only give estimates in the aggregate study's population, and give you no way to assess whether the assumption they rest on is plausible.}
+\note{\textasciitilde 1:15. Network meta-analysis lets us compare many treatments at once, as long as every treatment is joined by a path of randomised trials, like the triangle on the left. Health technology assessment committees increasingly see the other two pictures: a treatment that only comes from a single-arm study, or whole sub-networks with no common comparator between them. Comparisons across that gap are unanchored. In a review of 268 NICE appraisals from 2010 to 2018, 18 used population adjustment methods, and 16 of those were unanchored comparisons using Matching adjusted indirect comparisons (MAIC). And in over half of them, the decision involved more than two treatments.}
 \end{frame}
 % =====================================================================
 \begin{frame}
@@ -199,6 +196,35 @@
 \vfill
 \note{\textasciitilde 0:45. Whatever method you use, comparing treatments across a disconnected network rests on the assumption of conditional constancy of absolute effects. Once you've adjusted for covariates, absolute outcomes are exchangeable between studies. The key word is absolute. A connected NMA only assumes constancy of relative effects, so only effect modifiers need to be balanced, and randomisation takes care of prognostic factors. Across a disconnected network there's no randomisation to lean on, so every prognostic factor and effect modifier has to be balanced or adjusted for, including the ones we can't measure.}
 \end{frame}
+
+% =====================================================================
+{\renewcommand{\footleft}{B\'eliveau et al., Res Synth Methods 2017 \textperiodcentered{} Thom et al., Med Decis Making 2022}
+\begin{frame}{What exists already}{Previous methods}
+\vspace{3mm}
+\centering
+{\footnotesize
+\renewcommand{\arraystretch}{1.75}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{46mm} >{\centering\arraybackslash}p{34mm} >{\centering\arraybackslash}p{26mm} >{\columncolor{pinkbg}\centering\arraybackslash}p{24mm}@{}}
+ & \textbf{AgD baseline models}\newline{\scriptsize\color{muted}B\'eliveau 2017, Thom 2022} & \textbf{MAIC / STC} & \textbf{\color{bristolred}ML-NMR-B} \\
+\arrayrulecolor{rulegrey}\hline
+Adjusts for covariates with IPD & \no{} {\scriptsize\color{muted}aggregate-level at most} & \yes & \yes \\
+\hline
+Networks of any size & \yes & \no{} {\scriptsize\color{muted}one pair} & \yes \\
+\hline
+Single-arm studies & \yes{} {\scriptsize\color{muted}(Thom)} & \yes & \yes \\
+\hline
+Estimates in any target population & \no & \no{} {\scriptsize\color{muted}AgD study only} & \yes \\
+\hline
+Tools to judge the assumption & \no & \no & \yes \\
+\hline
+\end{tabular}}
+\vfill
+\raggedright
+\statement{Baseline models already exist. We add IPD adjustment, so only \emph{conditional} constancy is needed, plus tools to judge it.}
+\vspace{2mm}
+\note{\textasciitilde 0:45. So what's out there already? With only aggregate data, B\'eliveau and colleagues, and Thom and colleagues, put a model on the study baselines: a random effect, or matching to the most similar connected study. These work in networks of any size, and Thom's methods take single-arm studies too. But they can't adjust with IPD, so they need unconditional constancy: raw outcomes comparable whatever the population. Thom and colleagues themselves recommend ML-NMR when IPD are available. MAIC and STC do adjust with IPD, but only for one pair of studies, only in the aggregate study's population, and with no way to judge the assumption. ML-NMR-B brings these together: a baseline model with IPD adjustment, in networks of any size, with single-arm studies, in any target population, and with tools to judge the assumption.}
+\end{frame}
+}
 
 % =====================================================================
 \begin{frame}{ML-NMR: one model for IPD and aggregate data}{Population adjustment}
@@ -275,7 +301,6 @@ $\displaystyle{\underbrace{\theta_{\bullet jk}}_{\labt{expected\\[-0.4ex]arm-lev
 {\small\color{body}Relative effects within sub-network 2 still come from its own trials. Covariate effects are shared across the network.\par}\vspace{2mm}
 {\small\color{body}\textcolor{bristolred}{\textbf{Missing:}} $\mu_{j'}$, the outcome on the reference treatment in the disconnected studies.\par}\vspace{2mm}
 {\small\color{ink}\textbf{Single-arm studies} are bridged the same way.\par}\vspace{2mm}
-{\scriptsize\color{muted}Builds on models for baselines across studies (B\'eliveau et al.\ 2017; Thom et al.\ 2022).\par}
 \end{columns}
 \vfill
 \centering
